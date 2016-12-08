@@ -1,0 +1,14 @@
+.container {
+  overflow: hidden;
+  background-color: $primary1Color;
+  .items {
+    float: right;
+    .item {
+      float: left;
+      text-decoration: none;
+    }
+    .active {
+      border-top: 3px solid $accent1Color;
+    }
+  }
+}

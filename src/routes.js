@@ -1,0 +1,26 @@
+import React from 'react';
+import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
+
+import App from 'components/App';
+import AppAuth from 'components/AppAuth';
+import Auth from 'components/Screens/Auth';
+import * as CalendarPage from 'components/Screens/Calendar';
+import HelpPage from 'components/Screens/Help';
+import NotFoundView from 'components/Screens/NotFound';
+
+export default [
+  <Redirect from="/" to="/dashboard" />,
+  <Route path="/" component={App}>
+    <IndexRedirect to="calendar/week" />
+    <Route path="calendar" component={CalendarPage.Container}>
+      <IndexRedirect to="week" />
+      <Route path="week" component={CalendarPage.Week} />
+    </Route>
+    <Route path="help" component={HelpPage} />
+    <Route path="404" component={NotFoundView} />
+  </Route>,
+  <Route path="/" component={AppAuth}>
+    <Route path="login" component={Auth.LoginPage} />
+    <Redirect from="*" to="404" />
+  </Route>,
+];

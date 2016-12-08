@@ -1,0 +1,17 @@
+{
+  "presets": ["es2015", "react", "stage-1", "stage-0"],
+  "env": {
+    "AVA": {
+      "plugins": [
+        "react-hot-loader/babel",
+        [
+          "babel-plugin-webpack-loaders",
+          {
+            "config": "${CONFIG}",
+            "verbose": false
+          }
+        ]
+      ]
+    }
+  }
+}

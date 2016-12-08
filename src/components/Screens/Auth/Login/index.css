@@ -1,0 +1,15 @@
+section.formFooter {
+  lost-utility: clearfix;
+  margin-top: 15px;
+  div {
+    lost-column: 1/2;
+  }
+  a {
+    line-height: 40px;
+  }
+}
+
+.container {
+  width: 300px;
+  margin: 0 auto;
+}
