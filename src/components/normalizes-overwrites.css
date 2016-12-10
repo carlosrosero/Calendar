@@ -2,3 +2,7 @@
   -webkit-appearance: none !important;
   appearance: none !important;
 }
+
+html {
+  font-size: 14px;
+}
