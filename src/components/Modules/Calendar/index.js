@@ -9,25 +9,26 @@ require('fullcalendar/dist/fullcalendar.css');
 
 
 const events = [{
-    'title': 'All Day Event',
-    'allDay': true,
-    'start': new Date(),
-    'end': new Date()
-  },{
-    'title': 'DTS STARTS',
-    'start': new Date(2016, 11, 13, 1, 0, 0),
-    'end': new Date(2016, 11, 13, 2, 0, 0)
-  },
+  id: 1,
+  title: 'All Day Event',
+  allDay: true,
+  start: new Date(),
+  end: new Date(),
+}, {
+  id: 2,
+  title: 'DTS STARTS',
+  start: new Date(2016, 11, 9, 1, 0, 0),
+  end: new Date(2016, 11, 9, 1, 30, 0),
+}];
 
-  {
-    'title': 'DTS ENDS',
-    'start': new Date(2016, 11, 6, 0, 0, 0),
-    'end': new Date(2016, 11, 13, 0, 0, 0)
-  }];
+// http://codepen.io/kotazi/pen/KVoXob
 
-//http://codepen.io/kotazi/pen/KVoXob
 class Calendar extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    date: PropTypes.instanceOf(Date),
+    // injected by mapDispatchToProps
+    push: PropTypes.func.isRequired,
+  };
 
   state = {date: new Date()};
   calendarRoot = null;
@@ -36,27 +37,28 @@ class Calendar extends React.Component {
     const {date} = this.props;
 
     $(this.calendarRoot).fullCalendar({
-			header: {
-				left: 'today prev,next',
-				center: 'title',
-				right: 'agendaWeek'
-			},
+      events,
+      header: {
+        left: 'today prev,next',
+        center: 'title',
+        right: 'agendaWeek',
+      },
       defaultDate: date,
       // week starts from Monday
       firstDay: 1,
       defaultView: 'agendaWeek',
-			editable: true,
+      editable: true,
       // this allows things to be dropped onto the calendar
-			droppable: true,
+      droppable: true,
       viewRender: this.handleViewRender,
-			drop: function() {
-				// is the "remove after drop" checkbox checked?
-				if ($('#drop-remove').is(':checked')) {
-					// if so, remove the element from the "Draggable Events" list
-					$(this).remove();
-				}
-			}
-    })
+      drop: () => {
+        // is the "remove after drop" checkbox checked?
+        if ($('#drop-remove').is(':checked')) {
+          // if so, remove the element from the "Draggable Events" list
+          $(this).remove();
+        }
+      },
+    });
   }
 
   initCalendarRoot = (node) => {
@@ -70,7 +72,7 @@ class Calendar extends React.Component {
   }
 
   render() {
-    return <div ref={this.initCalendarRoot}></div>;
+    return <div ref={this.initCalendarRoot} />;
   }
 }
 
@@ -80,5 +82,5 @@ function select() {
 }
 
 export default connect(select, {
-  push
+  push,
 })(Calendar);

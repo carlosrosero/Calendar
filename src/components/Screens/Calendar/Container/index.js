@@ -7,10 +7,12 @@ export default function CalendarContainer({children}) {
       <div className="col-md-2">
         Create
       </div>
-      <div  className="col-md-10">
+      <div className="col-md-10">
         {children}
       </div>
     </div>
   );
 }
-CalendarContainer.propTypes = {};
+CalendarContainer.propTypes = {
+  children: PropTypes.any.isRequired,
+};

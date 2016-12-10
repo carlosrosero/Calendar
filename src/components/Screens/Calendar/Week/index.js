@@ -6,7 +6,10 @@ import {connect} from 'react-redux';
 import Calendar from 'components/Modules/Calendar';
 
 class CalendarWeekPage extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    date: PropTypes.instanceOf(Date).isRequired,
+  };
+
   render() {
     return (<div>
       <Calendar date={this.props.date} />
@@ -16,7 +19,7 @@ class CalendarWeekPage extends React.Component {
 
 function select(state, ownProps) {
   return {
-    date: new Date(ownProps.location.query.date)
+    date: new Date(ownProps.location.query.date),
   };
 }
 

@@ -14,5 +14,5 @@ export default function TopNavItem({label, href}) {
 }
 TopNavItem.propTypes = {
   label: PropTypes.string.isRequired,
-  href: PropTypes.string.isRequired
+  href: PropTypes.string.isRequired,
 };

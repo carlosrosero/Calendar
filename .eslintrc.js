@@ -21,7 +21,8 @@ module.exports = {
   },
 
   "plugins": [
-    "react"
+    "react",
+    "babel"
   ],
 
   "globals": {
@@ -49,6 +50,8 @@ module.exports = {
     "no-plusplus": "off",
     "no-unused-vars": "warn",
     "jsx-a11y/label-has-for": "off",
-    "react/forbid-prop-types": "off"
+    "react/forbid-prop-types": "off",
+    "object-curly-spacing": "off",
+    "babel/object-curly-spacing": "warn"
   }
 }
