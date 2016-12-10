@@ -20,9 +20,9 @@ const plugins = [
   // Avoid publishing files when compilation fails
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({
-    __BASENAME__: JSON.stringify('educational/react-calendar-app/build'),
-    // 'process.env.NODE_ENV': JSON.stringify('production'),
-    // __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
+    __BASENAME__: JSON.stringify(process.env.PROJECT_SUBDIR || ''),
+    'process.env.NODE_ENV': JSON.stringify('production'),
+    __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.optimize.DedupePlugin(),
