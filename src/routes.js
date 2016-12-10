@@ -7,7 +7,7 @@ import HelpPage from 'components/Screens/Help';
 import NotFoundView from 'components/Screens/NotFound';
 
 export default [
-  <Redirect from="/" to="/dashboard" />,
+  <Redirect from="/" to="/calendar" />,
   <Route path="/" component={App}>
     <IndexRedirect to="calendar/week" />
     <Route path="calendar" component={CalendarPage.Container}>

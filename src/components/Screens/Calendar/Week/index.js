@@ -7,19 +7,21 @@ import Calendar from 'components/Modules/Calendar';
 
 class CalendarWeekPage extends React.Component {
   static propTypes = {
-    date: PropTypes.instanceOf(Date).isRequired,
+    defaultDate: PropTypes.instanceOf(Date).isRequired,
   };
 
   render() {
     return (<div>
-      <Calendar date={this.props.date} />
+      <Calendar date={this.props.defaultDate} />
     </div>);
   }
 }
 
 function select(state, ownProps) {
+  console.log('ownProps', ownProps);
+  const {date} = ownProps.location.query;
   return {
-    date: new Date(ownProps.location.query.date),
+    defaultDate: date ? new Date(date) : new Date(),
   };
 }
 

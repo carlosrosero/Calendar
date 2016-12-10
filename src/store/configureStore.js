@@ -6,6 +6,7 @@ import {routerMiddleware} from 'react-router-redux';
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 import rootReducer from 'reducers';
 /* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
+import {withBasename} from 'helpers/history';
 
 export default function configureStore(initialState) {
   const sagaMiddleware = createSagaMiddleware();
@@ -13,7 +14,7 @@ export default function configureStore(initialState) {
   let middleware = applyMiddleware();
   let enhancer;
 
-  // if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production') {
     /* eslint-disable import/no-extraneous-dependencies */
     // Redux middleware that spits an error on you when you try to mutate your state either inside a dispatch or between dispatches.
     const middlewares = [require('redux-immutable-state-invariant')()];
@@ -25,11 +26,11 @@ export default function configureStore(initialState) {
     middleware = applyMiddleware(...middlewares);
     enhancer = compose(
       middleware,
-      applyMiddleware(sagaMiddleware, routerMiddleware(browserHistory), logger),
+      applyMiddleware(sagaMiddleware, routerMiddleware(withBasename(browserHistory)), logger),
     );
-  // } else {
-  //   enhancer = compose(middleware, applyMiddleware(sagaMiddleware, routerMiddleware(browserHistory)));
-  // }
+  } else {
+    enhancer = compose(middleware, applyMiddleware(sagaMiddleware, routerMiddleware(withBasename(browserHistory))));
+  }
 
   const store = createStore(rootReducer, initialState, enhancer);
 

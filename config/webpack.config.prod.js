@@ -20,6 +20,7 @@ const plugins = [
   // Avoid publishing files when compilation fails
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({
+    __BASENAME__: JSON.stringify('educational/react-calendar-app/build'),
     'process.env.NODE_ENV': JSON.stringify('production'),
     __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
   }),
@@ -33,12 +34,12 @@ const plugins = [
   // This plugin moves all the CSS into a separate stylesheet
   // new ExtractTextPlugin('css/app.css', {allChunks: true}),
 ];
-
 module.exports = _.merge(baseConfig.config, {
   entry: {
     app: path.resolve(baseConfig.PATHS.app, 'main.js'),
     vendor: ['react'],
   },
+  // entry: path.resolve(baseConfig.PATHS.app, 'main.js'),
   output: {
     path: baseConfig.PATHS.build,
     filename: 'js/[name].js',
