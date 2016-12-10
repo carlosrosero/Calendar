@@ -21,8 +21,8 @@ const plugins = [
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({
     __BASENAME__: JSON.stringify('educational/react-calendar-app/build'),
-    'process.env.NODE_ENV': JSON.stringify('production'),
-    __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
+    // 'process.env.NODE_ENV': JSON.stringify('production'),
+    // __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.optimize.DedupePlugin(),
