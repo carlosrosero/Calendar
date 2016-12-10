@@ -16,7 +16,7 @@ class CalendarWeekPage extends React.Component {
 
 function select(state, ownProps) {
   return {
-    date: ownProps.location.query.date
+    date: new Date(ownProps.location.query.date)
   };
 }
 
