@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 // actions
 import {createEvent} from 'actions/Event';
 // components
-import {Field, reduxForm} from 'redux-form';
-import {FormGroupDateTimeSelector, FormGroupInput} from 'components/Base/Form/Groups';
+import {Field, reduxForm, formValueSelector} from 'redux-form';
+import * as FormGroups from 'components/Base/Form/Groups';
 import Button from 'components/Base/Form/Button';
 import LinkButton from 'components/Base/LinkButton';
 // other
@@ -19,6 +19,8 @@ class EventEditForm extends React.Component {
     handleSubmit: PropTypes.func.isRequired,
     // injected by mapDispatchToProps
     createEvent: PropTypes.func.isRequired,
+    // injected by mapStateToProps
+    allDayValue: PropTypes.bool,
   };
 
   submitLoginForm = (values) => {
@@ -27,20 +29,22 @@ class EventEditForm extends React.Component {
   }
 
   render() {
-    const {handleSubmit, pristine, submitting} = this.props;
+    const {allDayValue, handleSubmit, pristine, submitting} = this.props;
 
     return (<form onSubmit={handleSubmit(this.submitLoginForm)} className="form-horizontal">
-      <Field name="title" type="text" label="title" component={FormGroupInput} />
+      <Field name="title" type="text" label="title" component={FormGroups.Input} />
 
       <div className="form-group">
         <label className="col-sm-2 control-label">Dates</label>
         <div className="col-sm-4">
-          <Field name="startDate" component={FormGroupDateTimeSelector} />
+          <Field name="start" dateOnly={allDayValue} component={FormGroups.DateTimeSelector} />
         </div>
         <div className="col-sm-4">
-          <Field name="endDate" reverse component={FormGroupDateTimeSelector} />
+          <Field name="end" dateOnly={allDayValue} reverse component={FormGroups.DateTimeSelector} />
         </div>
       </div>
+
+      <Field name="allDay" label="All day" component={FormGroups.Checkbox} />
 
       <div>
         <LinkButton href="/calendar">Back</LinkButton>
@@ -50,11 +54,6 @@ class EventEditForm extends React.Component {
   }
 }
 
-function select() {
-  return {
-  };
-}
-
 function validate(values) {
   const errors = {};
   console.log('values', values);
@@ -62,25 +61,33 @@ function validate(values) {
     errors.title = 'Required';
   }
 
-  const isStartDateValid = isValidDate(values.startDate);
+  const isStartDateValid = isValidDate(values.start);
   if (!isStartDateValid) {
-    errors.startDate = 'Required';
+    errors.start = 'Required';
   }
 
-  const isEndDateValid = isValidDate(values.endDate);
+  const isEndDateValid = isValidDate(values.end);
   if (!isEndDateValid) {
-    errors.endDate = 'Required';
+    errors.end = 'Required';
   }
 
-  const startDate = new Date(values.startDate);
-  const endDate = new Date(values.endDate);
-  // console.log('+startDate >= +endDate', +startDate, +endDate, startDate, endDate);
-  if (isStartDateValid && isEndDateValid && (+startDate >= +endDate)) {
-    errors.startDate = 'End date must be greater than Start date';
+  const startDate = new Date(values.start);
+  const endDate = new Date(values.end);
+  const isEndDateLessThanStart = values.allDay ? (+startDate > +endDate) : (+startDate >= +endDate);
+  if (isStartDateValid && isEndDateValid && isEndDateLessThanStart) {
+    errors.start = 'End date must be greater than Start date';
   }
   console.log('errors', errors);
 
   return errors;
+}
+
+const selector = formValueSelector('eventEditForm');
+function select(state) {
+  const allDayValue = selector(state, 'allDay');
+  return {
+    allDayValue,
+  };
 }
 
 export default connect(select, {

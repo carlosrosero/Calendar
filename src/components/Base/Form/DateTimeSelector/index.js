@@ -11,6 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 class DateTimeSelector extends React.Component {
   static propTypes = {
     reverse: PropTypes.bool,
+    dateOnly: PropTypes.bool,
     value: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     onBlur: PropTypes.func.isRequired,
@@ -31,6 +32,11 @@ class DateTimeSelector extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    // call onBlur callback to ask the form to perform validaion with changed data
+    this.handleBlur(nextProps);
+  }
+
   setDateTime = (newDate, newTimeStr) => {
     const newState = {date: newDate, time: newTimeStr};
     let dateStr = '';
@@ -43,7 +49,9 @@ class DateTimeSelector extends React.Component {
       dateTimeStr = `${dateStr} ${newTimeStr}`;
       newState.dateTime = moment(dateTimeStr);
     }
-    this.props.onChange(dateTimeStr);
+
+    const {dateOnly} = this.props;
+    this.props.onChange(dateOnly ? dateStr : dateTimeStr);
     this.setState(newState);
   }
 
@@ -57,18 +65,26 @@ class DateTimeSelector extends React.Component {
     this.setDateTime(date, timeStr);
   }
 
-  handleBlur = () => {
-    const {dateTime} = this.state;
-    if (dateTime) {
-      this.props.onBlur(dateTime.format('YYYY-MM-DD HH:MM'));
+  handleBlur = (props) => {
+    const {dateTime, date} = this.state;
+    const {dateOnly} = props;
+
+    if (!dateOnly && dateTime) {
+      // both date and time are required
+      this.props.onBlur(dateTime.format('YYYY-MM-DD HH:mm'));
+    } else if (dateOnly && date) {
+      // date only is required
+      this.props.onBlur(date.format('YYYY-MM-DD'));
     } else {
+      // both date and time are required but they were not selected
       this.props.onBlur(null);
     }
   }
 
   render() {
     const {time} = this.state;
-    const {reverse} = this.props;
+    const {reverse, dateOnly} = this.props;
+    console.log('dateOnly', dateOnly);
     // TODO: disable past dates
     const controls = [
       <div className="col-xs-6" key="1">
@@ -78,13 +94,15 @@ class DateTimeSelector extends React.Component {
           className="form-control input-sm"
           selected={this.state.date}
           onChange={this.handleDateSelected}
-          onBlur={this.handleBlur}
+          onBlur={() => { this.handleBlur(this.props); }}
         />
       </div>,
-      <div className="col-xs-4" key="2">
-        <TimeSelector value={time} onChange={this.handleTimeSelected} onBlur={this.handleBlur} />
-      </div>,
     ];
+    if (!dateOnly) {
+      controls.push(<div className="col-xs-4" key="2">
+        <TimeSelector value={time} onChange={this.handleTimeSelected} onBlur={() => { this.handleBlur(this.props); }} />
+      </div>);
+    }
 
     return (<div className="row">
       {reverse ? controls.reverse() : controls}

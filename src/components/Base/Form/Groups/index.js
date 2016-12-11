@@ -1,2 +1,3 @@
-export FormGroupInput from './Input';
-export FormGroupDateTimeSelector from './DateTimeSelector';
+export Input from './Input';
+export DateTimeSelector from './DateTimeSelector';
+export Checkbox from './Checkbox';
