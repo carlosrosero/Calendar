@@ -1,8 +1,9 @@
 import _ from 'lodash';
 
 const localStorageApi = {
-  addItemToCollection: (collectionName, item) => {
-    item.id = _.uniqueId(+(new Date()));
+  addItemToCollection: (collectionName, data) => {
+    const id = _.uniqueId(+(new Date()));
+    const item = {...data, id};
 
     // read the cillection from localStorage and add a new item to it
     const collectionStrData = localStorage.getItem(collectionName);

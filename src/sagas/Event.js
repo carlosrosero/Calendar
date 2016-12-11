@@ -56,6 +56,8 @@ export function* watchEventCreated() {
   while (true) {
   /* eslint-enable no-constant-condition */
     const action = yield take(eventActionTypes.create.SUCCESS);
-    yield put(push('/calendar'));
+    if (action.redirectToCalendar) {
+      yield put(push('/calendar'));
+    }
   }
 }

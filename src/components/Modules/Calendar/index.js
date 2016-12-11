@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import $ from 'jquery';
 import _ from 'lodash';
+// components
+import EventQuickCreateModal from 'components/Modules/EventQuickCreateModal';
 
 require('fullcalendar');
 require('fullcalendar/dist/fullcalendar.css');
@@ -16,12 +18,16 @@ class Calendar extends React.Component {
     push: PropTypes.func.isRequired,
   };
 
-  state = {date: new Date()};
+  state = {
+    date: new Date(),
+    showNewEventModal: false,
+    newEventStart: '',
+    newEventEnd: '',
+  };
   calendarRoot = null;
 
   componentDidMount() {
     const {date, events} = this.props;
-    console.log('=====events', events);
     $(this.calendarRoot).fullCalendar({
       events,
       header: {
@@ -34,17 +40,29 @@ class Calendar extends React.Component {
       firstDay: 1,
       defaultView: 'agendaWeek',
       editable: true,
+      selectable: true,
       // this allows things to be dropped onto the calendar
       droppable: true,
-      viewRender: this.handleViewRender,
-      drop: () => {
-        // is the "remove after drop" checkbox checked?
-        if ($('#drop-remove').is(':checked')) {
-          // if so, remove the element from the "Draggable Events" list
-          $(this).remove();
-        }
+      viewRender: this.viewRender,
+      select: (start, end) => {
+        console.log('start, end', start.format('YYYY-MM-DD HH:mm'), end.format('YYYY-MM-DD HH:mm'));
+        this.setState({
+          showNewEventModal: true,
+          newEventStart: start.format('YYYY-MM-DD HH:mm'),
+          newEventEnd: end.format('YYYY-MM-DD HH:mm'),
+        });
       },
+      // eventMouseover(event, jsEvent, view) {
+      //   new Tooltip(jsEvent, event).show();
+      // },
+      // eventMouseout(event, jsEvent, view) {
+      //   new Tooltip(jsEvent).hide();
+      // }
     });
+  }
+
+  componentWillUnmount() {
+    $(this.calendarRoot).fullCalendar('destroy');
   }
 
   componentWillReceiveProps(newProps) {
@@ -58,14 +76,26 @@ class Calendar extends React.Component {
     this.calendarRoot = node;
   }
 
- // TODO: bad name
-  handleViewRender = (view) => {
+  viewRender = (view) => {
     const date = view.intervalStart.format();
     this.props.push(`/calendar/week?date=${date}`);
   }
 
+  handleNewEventModalHide = () => {
+    this.setState({showNewEventModal: false, newEventStart: '', newEventEnd: ''});
+  }
+
   render() {
-    return <div ref={this.initCalendarRoot} />;
+    const {newEventStart, newEventEnd} = this.state;
+    return (<div>
+      <div ref={this.initCalendarRoot} />
+      <EventQuickCreateModal
+        show={this.state.showNewEventModal}
+        onHide={this.handleNewEventModalHide}
+        start={newEventStart}
+        end={newEventEnd}
+      />
+    </div>);
   }
 }
 

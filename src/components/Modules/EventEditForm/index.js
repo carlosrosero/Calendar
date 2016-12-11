@@ -23,7 +23,7 @@ class EventEditForm extends React.Component {
     allDayValue: PropTypes.bool,
   };
 
-  submitLoginForm = (values) => {
+  submitForm = (values) => {
     console.log('values', values);
     return this.props.createEvent(values);
   }
@@ -31,7 +31,7 @@ class EventEditForm extends React.Component {
   render() {
     const {allDayValue, handleSubmit, pristine, submitting} = this.props;
 
-    return (<form onSubmit={handleSubmit(this.submitLoginForm)} className="form-horizontal">
+    return (<form onSubmit={handleSubmit(this.submitForm)} className="form-horizontal">
       <Field name="title" type="text" label="title" component={FormGroups.Input} />
 
       <div className="form-group">

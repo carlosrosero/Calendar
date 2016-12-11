@@ -22,8 +22,8 @@ export const actionCreators = {
   },
 };
 
-export const createEvent = (data) => {
-  return action(CREATE_EVENT, {data});
+export const createEvent = (data, redirectToCalendar = true) => {
+  return action(CREATE_EVENT, {data, redirectToCalendar});
 };
 
 export const fetchAllEvents = () => {
