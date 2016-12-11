@@ -2,6 +2,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 // actions
+import {createEvent} from 'actions/Event';
 // components
 import {Field, reduxForm} from 'redux-form';
 import {FormGroupDateTimeSelector, FormGroupInput} from 'components/Base/Form/Groups';
@@ -16,10 +17,13 @@ class EventEditForm extends React.Component {
     pristine: PropTypes.bool.isRequired,
     submitting: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    // injected by mapDispatchToProps
+    createEvent: PropTypes.func.isRequired,
   };
 
   submitLoginForm = (values) => {
     console.log('values', values);
+    return this.props.createEvent(values);
   }
 
   render() {
@@ -80,7 +84,7 @@ function validate(values) {
 }
 
 export default connect(select, {
-  // submitLogin,
+  createEvent,
 })(reduxForm({
   form: 'eventEditForm',
   validate,
