@@ -49,6 +49,7 @@ class Calendar extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (!_.isEqual(this.props.events, newProps.events)) {
+      $(this.calendarRoot).fullCalendar('removeEvents');
       $(this.calendarRoot).fullCalendar('addEventSource', newProps.events);
     }
   }
