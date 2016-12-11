@@ -15,6 +15,7 @@ class Calendar extends React.Component {
   static propTypes = {
     date: PropTypes.instanceOf(Date),
     events: PropTypes.array.isRequired,
+    onEventChanged: PropTypes.func.isRequired,
     // injected by mapDispatchToProps
     push: PropTypes.func.isRequired,
   };
@@ -28,6 +29,7 @@ class Calendar extends React.Component {
     eventToBeViewed: null,
   };
   calendarRoot = null;
+  eventFields = ['id', 'title', 'allDay', 'start', 'end', 'className', 'color', 'backgroundColor', 'borderColor', 'textColor'];
 
   componentDidMount() {
     const {date, events} = this.props;
@@ -56,6 +58,8 @@ class Calendar extends React.Component {
         });
       },
       eventClick: this.handleEventClick,
+      eventDrop: this.handleEventChanged,
+      eventResize: this.handleEventChanged,
     });
   }
 
@@ -81,6 +85,15 @@ class Calendar extends React.Component {
 
   handleEventClick = (event) => {
     this.setState({showEventViewModal: true, eventToBeViewed: event});
+  }
+
+  handleEventChanged = (event) => {
+    const evenSerialized = _.pick(event, this.eventFields);
+    this.props.onEventChanged({
+      ...evenSerialized,
+      start: evenSerialized.start.format('YYYY-MM-DD HH:mm'),
+      end: evenSerialized.end.format('YYYY-MM-DD HH:mm'),
+    });
   }
 
   handleNewEventModalHide = () => {

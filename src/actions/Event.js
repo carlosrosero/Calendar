@@ -8,6 +8,7 @@ export const actionTypes = {
   fetch: createRequestTypes('EVENT/FETCH'),
 };
 export const CREATE_EVENT = '@EVENT/CREATE';
+export const UPDATE_EVENT = '@EVENT/UPDATE';
 export const FETCH_EVENT = '@EVENT/FETCH';
 export const FETCH_ALL_EVENTS = '@EVENTS/FETCH_ALL';
 
@@ -16,6 +17,11 @@ export const actionCreators = {
     request: () => action(actionTypes.create.REQUEST, {}),
     success: (id, response) => action(actionTypes.create.SUCCESS, {response}),
     failure: (id, error) => action(actionTypes.create.FAILURE, {error}),
+  },
+  update: {
+    request: (id) => action(actionTypes.update.REQUEST, {id}),
+    success: (id, response) => action(actionTypes.update.SUCCESS, {response}),
+    failure: (id, error) => action(actionTypes.update.FAILURE, {error}),
   },
   fetchAll: {
     request: () => action(actionTypes.fetchAll.REQUEST, {}),
@@ -31,6 +37,10 @@ export const actionCreators = {
 
 export const createEvent = (data, redirectToCalendar = true) => {
   return action(CREATE_EVENT, {data, redirectToCalendar});
+};
+
+export const updateEvent = (data) => {
+  return action(UPDATE_EVENT, {data});
 };
 
 export const fetchAllEvents = () => {

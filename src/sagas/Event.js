@@ -7,6 +7,7 @@ import {
   CREATE_EVENT,
   FETCH_EVENT,
   FETCH_ALL_EVENTS,
+  UPDATE_EVENT,
 } from 'actions/Event';
 import api from 'helpers/Api';
 import {fetchEntity} from 'helpers/sagas';
@@ -18,6 +19,13 @@ export const schemas = {
 const eventApi = {
   post: fetchEntity.bind(null, actionCreators.create, (data) => {
     return api.post({
+      endpoint: 'events',
+      schema: schemas.event,
+      data,
+    });
+  }),
+  put: fetchEntity.bind(null, actionCreators.update, (data) => {
+    return api.put({
       endpoint: 'events',
       schema: schemas.event,
       data,
@@ -38,8 +46,13 @@ const eventApi = {
   }),
 };
 
+
 export function* createEvent(eventData) {
   yield call(eventApi.post, eventData);
+}
+
+export function* updateEvent(eventData) {
+  yield call(eventApi.put, eventData);
 }
 
 export function* fetchAllEvents() {
@@ -50,12 +63,22 @@ export function* fetchEvent(id) {
   yield call(eventApi.getOne, id);
 }
 
+
 export function* watchCreateEvent() {
   /* eslint-disable no-constant-condition */
   while (true) {
   /* eslint-enable no-constant-condition */
     const eventAction = yield take(CREATE_EVENT);
     yield fork(createEvent, eventAction.data);
+  }
+}
+
+export function* watchUpdateEvent() {
+  /* eslint-disable no-constant-condition */
+  while (true) {
+  /* eslint-enable no-constant-condition */
+    const eventAction = yield take(UPDATE_EVENT);
+    yield fork(updateEvent, eventAction.data);
   }
 }
 
@@ -85,5 +108,14 @@ export function* watchEventCreated() {
     if (action.redirectToCalendar) {
       yield put(push('/calendar'));
     }
+  }
+}
+
+export function* watchEventUpdated() {
+  /* eslint-disable no-constant-condition */
+  while (true) {
+  /* eslint-enable no-constant-condition */
+    yield take(eventActionTypes.update.SUCCESS);
+    yield put(push('/calendar'));
   }
 }

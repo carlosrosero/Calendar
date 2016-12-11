@@ -2,7 +2,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 // actions
-import {createEvent} from 'actions/Event';
+import {createEvent, updateEvent} from 'actions/Event';
 // components
 import {Field, reduxForm, formValueSelector} from 'redux-form';
 import * as FormGroups from 'components/Base/Form/Groups';
@@ -19,19 +19,26 @@ class EventEditForm extends React.Component {
     handleSubmit: PropTypes.func.isRequired,
     // injected by mapDispatchToProps
     createEvent: PropTypes.func.isRequired,
+    updateEvent: PropTypes.func.isRequired,
     // injected by mapStateToProps
     allDayValue: PropTypes.bool,
   };
 
   submitForm = (values) => {
     console.log('values', values);
-    return this.props.createEvent(values);
+    if (values.id) {
+      this.props.updateEvent(values);
+    } else {
+      this.props.createEvent(values);
+    }
   }
 
   render() {
     const {allDayValue, handleSubmit, pristine, submitting} = this.props;
 
     return (<form onSubmit={handleSubmit(this.submitForm)} className="form-horizontal">
+      <Field name="id" component={FormGroups.Hidden} />
+
       <Field name="title" type="text" label="title" component={FormGroups.Input} />
 
       <div className="form-group">
@@ -93,6 +100,7 @@ function select(state, ownProps) {
 
 export default connect(select, {
   createEvent,
+  updateEvent,
 })(reduxForm({
   form: 'eventEditForm',
   validate,
