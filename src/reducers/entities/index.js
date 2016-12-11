@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux';
-// import users from './users';
+import events from './events';
 
 export default combineReducers({
-  // users,
-  t: (state = {}) => state,
+  events,
 });

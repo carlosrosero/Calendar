@@ -12,6 +12,12 @@ const localStorageApi = {
 
     return item;
   },
+
+  fetchCollection: (collectionName) => {
+    const collectionStrData = localStorage.getItem(collectionName);
+    const collection = JSON.parse(collectionStrData) || [];
+    return collection;
+  },
 };
 
 export default localStorageApi;

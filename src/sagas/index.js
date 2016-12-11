@@ -1,10 +1,9 @@
 import {fork} from 'redux-saga/effects';
-import {watchCreateEvent/* , watchUpdateLoggedUser, watchChangeUserPassword */} from './Event';
-// import {watchSubmitLoginForm/* , watchSubmitSignOut, watchSubmitRegisterForm */} from './login';
+import {watchCreateEvent, watchFetchAllEvents} from './Event';
 
 export default function* root() {
   yield [
     fork(watchCreateEvent),
-    // fork(watchSubmitLoginForm),
+    fork(watchFetchAllEvents),
   ];
 }

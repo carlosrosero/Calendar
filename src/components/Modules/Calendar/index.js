@@ -3,29 +3,15 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import $ from 'jquery';
+import _ from 'lodash';
 
 require('fullcalendar');
 require('fullcalendar/dist/fullcalendar.css');
 
-
-const events = [{
-  id: 1,
-  title: 'All Day Event',
-  allDay: true,
-  start: new Date(),
-  end: new Date(),
-}, {
-  id: 2,
-  title: 'DTS STARTS',
-  start: new Date(2016, 11, 9, 1, 0, 0),
-  end: new Date(2016, 11, 9, 1, 30, 0),
-}];
-
-// http://codepen.io/kotazi/pen/KVoXob
-
 class Calendar extends React.Component {
   static propTypes = {
     date: PropTypes.instanceOf(Date),
+    events: PropTypes.array.isRequired,
     // injected by mapDispatchToProps
     push: PropTypes.func.isRequired,
   };
@@ -34,8 +20,8 @@ class Calendar extends React.Component {
   calendarRoot = null;
 
   componentDidMount() {
-    const {date} = this.props;
-
+    const {date, events} = this.props;
+    console.log('=====events', events);
     $(this.calendarRoot).fullCalendar({
       events,
       header: {
@@ -59,6 +45,12 @@ class Calendar extends React.Component {
         }
       },
     });
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (!_.isEqual(this.props.events, newProps.events)) {
+      $(this.calendarRoot).fullCalendar('addEventSource', newProps.events);
+    }
   }
 
   initCalendarRoot = (node) => {
