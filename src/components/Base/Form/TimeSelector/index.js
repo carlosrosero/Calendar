@@ -2,7 +2,7 @@
 import React, {PropTypes} from 'react';
 import _ from 'lodash';
 
-export default function TimeSelector({value, onChange}) {
+export default function TimeSelector({value, onChange, onBlur}) {
   // generate time range
   const hoursRange = _.range(0, 24);
   const minutesRange = _.range(0, 51, 30);
@@ -14,7 +14,13 @@ export default function TimeSelector({value, onChange}) {
     });
   }).flatten().value();
 
-  return (<select value={value} onChange={(event) => { onChange(event.target.value); }} className="form-control input-sm">
+  return (<select
+    className="form-control input-sm"
+    value={value}
+    onChange={(event) => { onChange(event.target.value); }}
+    onBlur={onBlur}
+  >
+    <option value="" />
     {timeRange.map((time) =>
       <option value={time} key={time}>{time}</option>
     )}
@@ -23,4 +29,5 @@ export default function TimeSelector({value, onChange}) {
 TimeSelector.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
 };

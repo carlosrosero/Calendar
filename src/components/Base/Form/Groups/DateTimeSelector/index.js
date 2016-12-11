@@ -8,6 +8,7 @@ export default function FormGroupDateTimeSelector({input, meta: {touched, error,
     <DateTimeSelector
       {...input}
     />
+    {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
   </div>);
 }
 FormGroupDateTimeSelector.propTypes = {

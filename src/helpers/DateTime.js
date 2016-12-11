@@ -1,6 +1,10 @@
 import _ from 'lodash';
 
 export function isValidDate(date) {
+  if (!date) {
+    return false;
+  }
+
   let testedDate = date;
   if (!_.isDate(date)) {
     testedDate = new Date(date);

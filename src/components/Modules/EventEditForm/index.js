@@ -7,6 +7,8 @@ import {Field, reduxForm} from 'redux-form';
 import {FormGroupDateTimeSelector, FormGroupInput} from 'components/Base/Form/Groups';
 import Button from 'components/Base/Form/Button';
 import LinkButton from 'components/Base/LinkButton';
+// other
+import {isValidDate} from 'helpers/DateTime';
 
 class EventEditForm extends React.Component {
   static propTypes = {
@@ -51,13 +53,28 @@ function select() {
 
 function validate(values) {
   const errors = {};
+  console.log('values', values);
   if (!values.title) {
     errors.title = 'Required';
   }
-  //
-  // if (!values.password) {
-  //   errors.password = 'Password is required';
-  // }
+
+  const isStartDateValid = isValidDate(values.startDate);
+  if (!isStartDateValid) {
+    errors.startDate = 'Required';
+  }
+
+  const isEndDateValid = isValidDate(values.endDate);
+  if (!isEndDateValid) {
+    errors.endDate = 'Required';
+  }
+
+  const startDate = new Date(values.startDate);
+  const endDate = new Date(values.endDate);
+  // console.log('+startDate >= +endDate', +startDate, +endDate, startDate, endDate);
+  if (isStartDateValid && isEndDateValid && (+startDate >= +endDate)) {
+    errors.startDate = 'End date must be greater than Start date';
+  }
+  console.log('errors', errors);
 
   return errors;
 }
