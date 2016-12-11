@@ -19,6 +19,11 @@ const localStorageApi = {
     const collection = JSON.parse(collectionStrData) || [];
     return collection;
   },
+
+  fetchById: (collectionName, id) => {
+    const collection = localStorageApi.fetchCollection(collectionName);
+    return _.find(collection, {id});
+  },
 };
 
 export default localStorageApi;

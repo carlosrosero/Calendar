@@ -1,7 +1,13 @@
 import {take, call, fork, put} from 'redux-saga/effects';
 import {push} from 'react-router-redux';
 import {Schema, arrayOf} from 'normalizr';
-import {actionCreators, actionTypes as eventActionTypes, CREATE_EVENT, FETCH_ALL_EVENTS} from 'actions/Event';
+import {
+  actionCreators,
+  actionTypes as eventActionTypes,
+  CREATE_EVENT,
+  FETCH_EVENT,
+  FETCH_ALL_EVENTS,
+} from 'actions/Event';
 import api from 'helpers/Api';
 import {fetchEntity} from 'helpers/sagas';
 
@@ -17,10 +23,17 @@ const eventApi = {
       data,
     });
   }),
-  get: fetchEntity.bind(null, actionCreators.fetchAll, () => {
+  getAll: fetchEntity.bind(null, actionCreators.fetchAll, () => {
     return api.get({
       endpoint: 'events',
       schema: arrayOf(schemas.event),
+    });
+  }),
+  getOne: fetchEntity.bind(null, actionCreators.fetch, (id) => {
+    return api.get({
+      endpoint: 'events',
+      query: {id},
+      schema: schemas.event,
     });
   }),
 };
@@ -30,7 +43,11 @@ export function* createEvent(eventData) {
 }
 
 export function* fetchAllEvents() {
-  yield call(eventApi.get);
+  yield call(eventApi.getAll);
+}
+
+export function* fetchEvent(id) {
+  yield call(eventApi.getOne, id);
 }
 
 export function* watchCreateEvent() {
@@ -48,6 +65,15 @@ export function* watchFetchAllEvents() {
   /* eslint-enable no-constant-condition */
     yield take(FETCH_ALL_EVENTS);
     yield fork(fetchAllEvents);
+  }
+}
+
+export function* watchFetchEvent() {
+  /* eslint-disable no-constant-condition */
+  while (true) {
+  /* eslint-enable no-constant-condition */
+    const {id} = yield take(FETCH_EVENT);
+    yield fork(fetchEvent, id);
   }
 }
 

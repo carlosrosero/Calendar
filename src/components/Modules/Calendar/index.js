@@ -6,6 +6,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 // components
 import EventQuickCreateModal from 'components/Modules/EventQuickCreateModal';
+import EventViewModal from 'components/Modules/EventViewModal';
 
 require('fullcalendar');
 require('fullcalendar/dist/fullcalendar.css');
@@ -23,6 +24,8 @@ class Calendar extends React.Component {
     showNewEventModal: false,
     newEventStart: '',
     newEventEnd: '',
+    showEventViewModal: false,
+    eventToBeViewed: null,
   };
   calendarRoot = null;
 
@@ -52,12 +55,7 @@ class Calendar extends React.Component {
           newEventEnd: end.format('YYYY-MM-DD HH:mm'),
         });
       },
-      // eventMouseover(event, jsEvent, view) {
-      //   new Tooltip(jsEvent, event).show();
-      // },
-      // eventMouseout(event, jsEvent, view) {
-      //   new Tooltip(jsEvent).hide();
-      // }
+      eventClick: this.handleEventClick,
     });
   }
 
@@ -81,9 +79,18 @@ class Calendar extends React.Component {
     this.props.push(`/calendar/week?date=${date}`);
   }
 
+  handleEventClick = (event) => {
+    this.setState({showEventViewModal: true, eventToBeViewed: event});
+  }
+
   handleNewEventModalHide = () => {
     this.setState({showNewEventModal: false, newEventStart: '', newEventEnd: ''});
   }
+
+  handleEventViewModalHide= () => {
+    this.setState({showEventViewModal: false, eventToBeViewed: null});
+  }
+
 
   render() {
     const {newEventStart, newEventEnd} = this.state;
@@ -94,6 +101,11 @@ class Calendar extends React.Component {
         onHide={this.handleNewEventModalHide}
         start={newEventStart}
         end={newEventEnd}
+      />
+      <EventViewModal
+        show={this.state.showEventViewModal}
+        onHide={this.handleEventViewModalHide}
+        event={this.state.eventToBeViewed}
       />
     </div>);
   }

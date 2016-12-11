@@ -24,17 +24,28 @@ class DateTimeSelector extends React.Component {
   };
 
   componentWillMount() {
-    const {value} = this.props;
-    if (isValidDate(value)) {
-      const time = getTimeFromDate(value);
-      const dateTime = moment(value);
-      this.setState({dateTime, date: dateTime.format('YYYY-MM-DD'), time});
-    }
+    const newState = this.getNewStateFromProps(this.props);
+    this.setState(newState);
   }
 
   componentWillReceiveProps(nextProps) {
+    const newState = this.getNewStateFromProps(nextProps);
+    this.setState(newState, () => {
+      this.handleBlur(nextProps);
+    });
     // call onBlur callback to ask the form to perform validaion with changed data
-    this.handleBlur(nextProps);
+    // this.handleBlur(nextProps);
+  }
+
+  getNewStateFromProps = (props) => {
+    const {value} = props;
+    if (isValidDate(value)) {
+      const dateTime = moment(value);
+      const time = dateTime.format('HH:mm');
+      return {dateTime, date: dateTime, time};
+      // this.setState({dateTime, date: dateTime, time});
+    }
+    return null;
   }
 
   setDateTime = (newDate, newTimeStr) => {
@@ -84,7 +95,7 @@ class DateTimeSelector extends React.Component {
   render() {
     const {time} = this.state;
     const {reverse, dateOnly} = this.props;
-    console.log('dateOnly', dateOnly);
+    console.log('dateOnly', dateOnly, this.state.date, this.state.time);
     // TODO: disable past dates
     const controls = [
       <div className="col-xs-6" key="1">

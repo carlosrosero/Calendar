@@ -83,10 +83,11 @@ function validate(values) {
 }
 
 const selector = formValueSelector('eventEditForm');
-function select(state) {
+function select(state, ownProps) {
   const allDayValue = selector(state, 'allDay');
   return {
     allDayValue,
+    initialValues: ownProps.event,
   };
 }
 

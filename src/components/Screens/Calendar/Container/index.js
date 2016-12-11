@@ -7,7 +7,7 @@ export default function CalendarContainer({children}) {
   return (
     <div className="row">
       <div className="col-md-1">
-        <LinkButton href="/calendar/create-event">New Event</LinkButton>
+        <LinkButton href="/calendar/event/create">New Event</LinkButton>
       </div>
       <div className="col-md-11">
         {children}
