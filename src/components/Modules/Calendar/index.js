@@ -42,7 +42,7 @@ class Calendar extends React.Component {
       header: {
         left: 'today prev,next',
         center: 'title',
-        right: 'agendaWeek',
+        right: '',
       },
       defaultDate: date,
       // week starts from Monday
@@ -96,6 +96,7 @@ class Calendar extends React.Component {
     this.props.onEventChanged({
       ...evenSerialized,
       start: evenSerialized.start.format('YYYY-MM-DD HH:mm'),
+      startDay: evenSerialized.start.format('YYYY-MM-DD'),
       end: evenSerialized.end.format('YYYY-MM-DD HH:mm'),
     });
   }

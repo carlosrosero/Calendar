@@ -21,6 +21,15 @@ class CalendarWeekPage extends React.Component {
   }
 
   handleEventChanged = (event) => {
+    const eventBeforeChange = _.find(this.props.events, {id: event.id});
+    if (eventBeforeChange) {
+      const oldStartDate = new Date(eventBeforeChange.start);
+      const newStartDate = new Date(event.start);
+      // event's start date is in the future now, so user must get notification again
+      if (newStartDate > oldStartDate) {
+        event.isUserNotified = false;
+      }
+    }
     this.props.updateEvent(event);
   }
 

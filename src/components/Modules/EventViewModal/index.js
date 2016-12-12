@@ -3,6 +3,7 @@ import React, {PropTypes} from 'react';
 // components
 import LinkButton from 'components/Base/LinkButton';
 import Button from 'components/Base/Form/Button';
+import DateTimeInterval from 'components/Base/DateTimeInterval';
 import Modal from 'components/Base/Modal';
 
 class EventViewModal extends React.Component {
@@ -30,7 +31,11 @@ class EventViewModal extends React.Component {
     >
       <div>
         <h3>{event.title}</h3>
-        <p>From {event.start.format('YYYY-MM-DD HH:mm')} to {event.end.format('YYYY-MM-DD HH:mm')}</p>
+
+        <p>
+          <DateTimeInterval start={event.start} end={event.end} />
+        </p>
+
         <div>
           <Button onClick={this.props.onHide}>Cancel</Button>
           <Button onClick={this.handleRemoveClicked}>Remove</Button>
