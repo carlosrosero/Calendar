@@ -25,16 +25,19 @@ class DateTimeSelector extends React.Component {
 
   componentWillMount() {
     const newState = this.getNewStateFromProps(this.props);
-    this.setState(newState);
+    if (newState) {
+      this.setState(newState);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     const newState = this.getNewStateFromProps(nextProps);
-    this.setState(newState, () => {
-      this.handleBlur(nextProps);
-    });
-    // call onBlur callback to ask the form to perform validaion with changed data
-    // this.handleBlur(nextProps);
+    if (newState) {
+      this.setState(newState, () => {
+        // call onBlur callback to ask the form to perform validaion with changed data
+        this.handleBlur(nextProps);
+      });
+    }
   }
 
   getNewStateFromProps = (props) => {
@@ -43,7 +46,6 @@ class DateTimeSelector extends React.Component {
       const dateTime = moment(value);
       const time = dateTime.format('HH:mm');
       return {dateTime, date: dateTime, time};
-      // this.setState({dateTime, date: dateTime, time});
     }
     return null;
   }

@@ -31,17 +31,18 @@ const eventApi = {
       data,
     });
   }),
-  getAll: fetchEntity.bind(null, actionCreators.fetchAll, () => {
+  getAll: fetchEntity.bind(null, actionCreators.fetchAll, (query) => {
     return api.get({
       endpoint: 'events',
       schema: arrayOf(schemas.event),
+      query,
     });
   }),
   getOne: fetchEntity.bind(null, actionCreators.fetch, (id) => {
     return api.get({
       endpoint: 'events',
-      query: {id},
       schema: schemas.event,
+      query: {id},
     });
   }),
 };
@@ -55,8 +56,8 @@ export function* updateEvent(eventData) {
   yield call(eventApi.put, eventData);
 }
 
-export function* fetchAllEvents() {
-  yield call(eventApi.getAll);
+export function* fetchAllEvents(query) {
+  yield call(eventApi.getAll, query);
 }
 
 export function* fetchEvent(id) {
@@ -86,8 +87,8 @@ export function* watchFetchAllEvents() {
   /* eslint-disable no-constant-condition */
   while (true) {
   /* eslint-enable no-constant-condition */
-    yield take(FETCH_ALL_EVENTS);
-    yield fork(fetchAllEvents);
+    const {query} = yield take(FETCH_ALL_EVENTS);
+    yield fork(fetchAllEvents, query);
   }
 }
 

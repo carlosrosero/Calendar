@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {createRequestTypes, action} from 'helpers/actions';
 
 // TODO: must be actionTypes = {fetch: createRequestTypes('GET_USER')}
@@ -36,15 +37,21 @@ export const actionCreators = {
 };
 
 export const createEvent = (data, redirectToCalendar = true) => {
-  return action(CREATE_EVENT, {data, redirectToCalendar});
+  return action(CREATE_EVENT, {
+    // according to the requirements, we don't have powerful API that will allow to search events by date using
+    // the 'start' field (because it's contains both date and time), so we have to store the startDay field
+    // that will allow to search events by day
+    data: {...data, startDay: moment(data.start).format('YYYY-MM-DD')},
+    redirectToCalendar,
+  });
 };
 
 export const updateEvent = (data) => {
   return action(UPDATE_EVENT, {data});
 };
 
-export const fetchAllEvents = () => {
-  return action(FETCH_ALL_EVENTS);
+export const fetchAllEvents = (query) => {
+  return action(FETCH_ALL_EVENTS, {query});
 };
 
 export const fetchEvent = (id) => {

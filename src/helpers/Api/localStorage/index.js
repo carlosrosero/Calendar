@@ -24,10 +24,10 @@ const localStorageApi = {
     return null;
   },
 
-  fetchCollection: (collectionName) => {
+  fetchCollection: (collectionName, query) => {
     const collectionStrData = localStorage.getItem(collectionName);
     const collection = JSON.parse(collectionStrData) || [];
-    return collection;
+    return query ? _.filter(collection, query) : collection;
   },
 
   fetchById: (collectionName, id) => {

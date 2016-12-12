@@ -6,6 +6,7 @@ const initialState = {};
 export default function events(state = initialState, action) {
   switch (action.type) {
     case actionTypes.create.SUCCESS:
+    case actionTypes.update.SUCCESS:
     case actionTypes.fetchAll.SUCCESS:
     case actionTypes.fetch.SUCCESS:
       return {

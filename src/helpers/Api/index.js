@@ -44,15 +44,13 @@ const api = {
     }
 
     const prefixedEndpoint = api.buildEndpoint(endpoint);
-    let dataFromLs;
-    if (query && query.id) {
-      dataFromLs = localStorageApi.fetchById(prefixedEndpoint, query.id);
-      if (!dataFromLs) {
-        return Promise.reject({error: `Item ${query.id} not found in ${endpoint}`});
-      }
-    } else {
-      dataFromLs = localStorageApi.fetchCollection(prefixedEndpoint);
+    const dataFromLs = localStorageApi.fetchCollection(prefixedEndpoint, query);
+    if (!dataFromLs) {
+      const error = query ? `Nothing found in ${endpoint} for ${JSON.stringify(query)} query` :
+        `Nothing found in ${endpoint}`;
+      return Promise.reject({error});
     }
+
     return Promise.resolve({response: normalize(dataFromLs, schema)});
   },
 };

@@ -29,7 +29,8 @@ class Calendar extends React.Component {
     eventToBeViewed: null,
   };
   calendarRoot = null;
-  eventFields = ['id', 'title', 'allDay', 'start', 'end', 'className', 'color', 'backgroundColor', 'borderColor', 'textColor'];
+  eventFields = ['id', 'title', 'allDay', 'start', 'end', 'className', 'color', 'backgroundColor',
+    'borderColor', 'textColor', 'startDay', 'isUserNotified'];
 
   componentDidMount() {
     const {date, events} = this.props;

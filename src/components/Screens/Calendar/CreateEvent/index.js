@@ -2,7 +2,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 // actions
-import {fetchEvent} from 'actions/Event';
+import {fetchAllEvents} from 'actions/Event';
 // components
 import EventEditForm from 'components/Modules/EventEditForm';
 
@@ -11,13 +11,13 @@ class CreateEventPage extends React.Component {
   static propTypes = {
     eventId: PropTypes.any,
     event: PropTypes.object,
-    fetchEvent: PropTypes.func.isRequired,
+    fetchAllEvents: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
     const {eventId} = this.props;
     if (eventId) {
-      this.props.fetchEvent(eventId);
+      this.props.fetchAllEvents({id: eventId});
     }
   }
 
@@ -40,5 +40,5 @@ function select(state, ownProps) {
 }
 
 export default connect(select, {
-  fetchEvent,
+  fetchAllEvents,
 })(CreateEventPage);
