@@ -2,7 +2,7 @@ import {fork} from 'redux-saga/effects';
 import {
   watchCreateEvent,
   watchUpdateEvent,
-  watchFetchEvent,
+  watchRemoveEvent,
   watchFetchAllEvents,
   watchEventCreated,
   watchEventUpdated,
@@ -12,7 +12,7 @@ export default function* root() {
   yield [
     fork(watchCreateEvent),
     fork(watchUpdateEvent),
-    fork(watchFetchEvent),
+    fork(watchRemoveEvent),
     fork(watchFetchAllEvents),
     fork(watchEventCreated),
     fork(watchEventUpdated),

@@ -10,8 +10,13 @@ class EventViewModal extends React.Component {
     show: PropTypes.bool,
     event: PropTypes.object.isRequired,
     onHide: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
   };
   state = {show: false};
+
+  handleRemoveClicked = () => {
+    this.props.onRemove(this.props.event);
+  }
 
   render() {
     const {event, show} = this.props;
@@ -28,6 +33,7 @@ class EventViewModal extends React.Component {
         <p>From {event.start.format('YYYY-MM-DD HH:mm')} to {event.end.format('YYYY-MM-DD HH:mm')}</p>
         <div>
           <Button onClick={this.props.onHide}>Cancel</Button>
+          <Button onClick={this.handleRemoveClicked}>Remove</Button>
           <LinkButton href={`/calendar/event/${event.id}`}>Edit</LinkButton>
         </div>
       </div>

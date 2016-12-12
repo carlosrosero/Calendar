@@ -5,7 +5,7 @@ import {
   actionCreators,
   actionTypes as eventActionTypes,
   CREATE_EVENT,
-  FETCH_EVENT,
+  REMOVE_EVENT,
   FETCH_ALL_EVENTS,
   UPDATE_EVENT,
 } from 'actions/Event';
@@ -38,11 +38,10 @@ const eventApi = {
       query,
     });
   }),
-  getOne: fetchEntity.bind(null, actionCreators.fetch, (id) => {
-    return api.get({
+  remove: fetchEntity.bind(null, actionCreators.remove, (id) => {
+    return api.delete({
       endpoint: 'events',
-      schema: schemas.event,
-      query: {id},
+      id,
     });
   }),
 };
@@ -60,8 +59,8 @@ export function* fetchAllEvents(query) {
   yield call(eventApi.getAll, query);
 }
 
-export function* fetchEvent(id) {
-  yield call(eventApi.getOne, id);
+export function* removeEvent(id) {
+  yield call(eventApi.remove, id);
 }
 
 
@@ -92,12 +91,12 @@ export function* watchFetchAllEvents() {
   }
 }
 
-export function* watchFetchEvent() {
+export function* watchRemoveEvent() {
   /* eslint-disable no-constant-condition */
   while (true) {
   /* eslint-enable no-constant-condition */
-    const {id} = yield take(FETCH_EVENT);
-    yield fork(fetchEvent, id);
+    const {id} = yield take(REMOVE_EVENT);
+    yield fork(removeEvent, id);
   }
 }
 

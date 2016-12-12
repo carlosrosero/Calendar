@@ -30,9 +30,16 @@ const localStorageApi = {
     return query ? _.filter(collection, query) : collection;
   },
 
-  fetchById: (collectionName, id) => {
+  delete: (collectionName, id) => {
     const collection = localStorageApi.fetchCollection(collectionName);
-    return _.find(collection, {id});
+    const itemIndex = _.findIndex(collection, {id});
+
+    if (itemIndex >= 0) {
+      collection.splice(itemIndex, 1);
+      localStorage.setItem(collectionName, JSON.stringify(collection));
+      return true;
+    }
+    return false;
   },
 };
 

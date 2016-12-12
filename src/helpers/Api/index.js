@@ -8,7 +8,7 @@ const api = {
   post: ({endpoint, data, schema}) => {
     // TOOD: throw instead of reject?
     if (!_.isString(endpoint)) {
-      return Promise.reject({error: 'endpoint must be specified'});
+      throw new Error('endpoint must be specified');
     }
     if (!_.isPlainObject(data)) {
       return Promise.reject({error: 'data must be a plain object'});
@@ -23,7 +23,7 @@ const api = {
   put: ({endpoint, data, schema}) => {
     // TOOD: throw instead of reject?
     if (!_.isString(endpoint)) {
-      return Promise.reject({error: 'endpoint must be specified'});
+      throw new Error('endpoint must be specified');
     }
     if (!_.isPlainObject(data) || !data.id) {
       return Promise.reject({error: 'data must be a plain object and have the id field'});
@@ -40,7 +40,7 @@ const api = {
 
   get: ({endpoint, schema, query}) => {
     if (!_.isString(endpoint)) {
-      return Promise.reject({error: 'endpoint must be specified'});
+      throw new Error('endpoint must be specified');
     }
 
     const prefixedEndpoint = api.buildEndpoint(endpoint);
@@ -52,6 +52,17 @@ const api = {
     }
 
     return Promise.resolve({response: normalize(dataFromLs, schema)});
+  },
+
+  delete: ({endpoint, id}) => {
+    if (!_.isString(endpoint)) {
+      throw new Error('endpoint must be specified');
+    }
+
+    const prefixedEndpoint = api.buildEndpoint(endpoint);
+    const isDeleted = localStorageApi.delete(prefixedEndpoint, id);
+
+    return isDeleted ? Promise.resolve({response: {id}}) : Promise.reject({error: `Item ${id} was not found in ${endpoint}`});
   },
 };
 

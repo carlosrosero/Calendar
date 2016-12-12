@@ -1,5 +1,5 @@
+import _ from 'lodash';
 import {actionTypes} from 'actions/Event';
-// import {actionTypes as authActionTypes} from 'actions/login';
 
 const initialState = {};
 
@@ -8,10 +8,15 @@ export default function events(state = initialState, action) {
     case actionTypes.create.SUCCESS:
     case actionTypes.update.SUCCESS:
     case actionTypes.fetchAll.SUCCESS:
-    case actionTypes.fetch.SUCCESS:
       return {
         ...state,
         ...action.response.entities.events,
+      };
+
+    case actionTypes.remove.SUCCESS:
+      console.log();
+      return {
+        ..._.omit(state, action.response.id),
       };
     default:
       return state;

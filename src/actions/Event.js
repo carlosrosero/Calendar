@@ -6,11 +6,11 @@ export const actionTypes = {
   create: createRequestTypes('EVENT/CREATE'),
   update: createRequestTypes('EVENT/UPDATE'),
   fetchAll: createRequestTypes('EVENT/FETCH_ALL'),
-  fetch: createRequestTypes('EVENT/FETCH'),
+  remove: createRequestTypes('EVENT/REMOVE'),
 };
 export const CREATE_EVENT = '@EVENT/CREATE';
 export const UPDATE_EVENT = '@EVENT/UPDATE';
-export const FETCH_EVENT = '@EVENT/FETCH';
+export const REMOVE_EVENT = '@EVENT/REMOVE';
 export const FETCH_ALL_EVENTS = '@EVENTS/FETCH_ALL';
 
 export const actionCreators = {
@@ -29,10 +29,10 @@ export const actionCreators = {
     success: (id, response) => action(actionTypes.fetchAll.SUCCESS, {response}),
     failure: (id, error) => action(actionTypes.fetchAll.FAILURE, {error}),
   },
-  fetch: {
-    request: (id) => action(actionTypes.fetch.REQUEST, {id}),
-    success: (id, response) => action(actionTypes.fetch.SUCCESS, {response}),
-    failure: (id, error) => action(actionTypes.fetch.FAILURE, {error}),
+  remove: {
+    request: (id) => action(actionTypes.remove.REQUEST, {id}),
+    success: (id, response) => action(actionTypes.remove.SUCCESS, {response}),
+    failure: (id, error) => action(actionTypes.remove.FAILURE, {error}),
   },
 };
 
@@ -54,6 +54,6 @@ export const fetchAllEvents = (query) => {
   return action(FETCH_ALL_EVENTS, {query});
 };
 
-export const fetchEvent = (id) => {
-  return action(FETCH_EVENT, {id});
+export const removeEvent = (id) => {
+  return action(REMOVE_EVENT, {id});
 };

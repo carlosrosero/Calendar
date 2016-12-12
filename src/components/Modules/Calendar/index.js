@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import $ from 'jquery';
 import _ from 'lodash';
+// actions
+import {removeEvent} from 'actions/Event';
 // components
 import EventQuickCreateModal from 'components/Modules/EventQuickCreateModal';
 import EventViewModal from 'components/Modules/EventViewModal';
@@ -18,6 +20,7 @@ class Calendar extends React.Component {
     onEventChanged: PropTypes.func.isRequired,
     // injected by mapDispatchToProps
     push: PropTypes.func.isRequired,
+    removeEvent: PropTypes.func.isRequired,
   };
 
   state = {
@@ -102,9 +105,18 @@ class Calendar extends React.Component {
   }
 
   handleEventViewModalHide= () => {
-    this.setState({showEventViewModal: false, eventToBeViewed: null});
+    this.hideEventViewModal();
   }
 
+  handleEventRemove = (event) => {
+    this.props.removeEvent(event.id);
+    $(this.calendarRoot).fullCalendar('removeEvents', event.id);
+    this.hideEventViewModal();
+  }
+
+  hideEventViewModal() {
+    this.setState({showEventViewModal: false, eventToBeViewed: null});
+  }
 
   render() {
     const {newEventStart, newEventEnd} = this.state;
@@ -117,9 +129,10 @@ class Calendar extends React.Component {
         end={newEventEnd}
       />
       <EventViewModal
+        event={this.state.eventToBeViewed}
         show={this.state.showEventViewModal}
         onHide={this.handleEventViewModalHide}
-        event={this.state.eventToBeViewed}
+        onRemove={this.handleEventRemove}
       />
     </div>);
   }
@@ -132,4 +145,5 @@ function select() {
 
 export default connect(select, {
   push,
+  removeEvent,
 })(Calendar);
