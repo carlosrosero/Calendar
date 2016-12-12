@@ -6,11 +6,9 @@ import {Link} from 'react-router';
 import styles from './index.css';
 
 export default function TopNavItem({label, href}) {
-  return (
-    <li>
-      <Link to={href} className={styles.item} activeClassName={styles.active}>{label}</Link>
-    </li>
-  );
+  return (<li>
+    <Link to={href} className={styles.item} activeClassName={styles.active}>{label}</Link>
+  </li>);
 }
 TopNavItem.propTypes = {
   label: PropTypes.string.isRequired,
