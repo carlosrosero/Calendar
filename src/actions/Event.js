@@ -1,7 +1,6 @@
 import moment from 'moment';
 import {createRequestTypes, action} from 'helpers/Actions';
 
-// TODO: must be actionTypes = {fetch: createRequestTypes('GET_USER')}
 export const actionTypes = {
   create: createRequestTypes('EVENT/CREATE'),
   update: createRequestTypes('EVENT/UPDATE'),

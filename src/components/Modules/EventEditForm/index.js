@@ -25,7 +25,6 @@ class EventEditForm extends React.Component {
   };
 
   submitForm = (values) => {
-    console.log('values', values);
     if (values.id) {
       this.props.updateEvent(values);
     } else {
@@ -61,7 +60,6 @@ class EventEditForm extends React.Component {
 
 function validate(values) {
   const errors = {};
-  console.log('values', values);
   if (!values.title) {
     errors.title = 'Required';
   }
@@ -82,7 +80,6 @@ function validate(values) {
   if (isStartDateValid && isEndDateValid && isEndDateLessThanStart) {
     errors.start = 'Start date must be early than the End date';
   }
-  console.log('errors', errors);
 
   return errors;
 }

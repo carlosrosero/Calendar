@@ -45,6 +45,9 @@ module.exports = _.merge(baseConfig.config, {
     filename: 'js/[name].js',
     publicPath: '/',
   },
+  externals: {
+    'moment': 'moment',
+  },
   stats: {
     colors: true,
   },

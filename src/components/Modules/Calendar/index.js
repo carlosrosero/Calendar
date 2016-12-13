@@ -55,14 +55,7 @@ class Calendar extends React.Component {
       // this allows things to be dropped onto the calendar
       droppable: true,
       viewRender: this.viewRender,
-      select: (start, end) => {
-        console.log('start, end', start.format('YYYY-MM-DD HH:mm'), end.format('YYYY-MM-DD HH:mm'));
-        this.setState({
-          showNewEventModal: true,
-          newEventStart: start.format('YYYY-MM-DD HH:mm'),
-          newEventEnd: end.format('YYYY-MM-DD HH:mm'),
-        });
-      },
+      select: this.handleDatesRangeSelected,
       eventClick: this.handleEventClick,
       eventDrop: this.handleEventChanged,
       eventResize: this.handleEventChanged,
@@ -87,6 +80,14 @@ class Calendar extends React.Component {
   viewRender = (view) => {
     const date = view.intervalStart.format();
     this.props.push(`/calendar/week?date=${date}`);
+  }
+
+  handleDatesRangeSelected = (start, end) => {
+    this.setState({
+      showNewEventModal: true,
+      newEventStart: start.format('YYYY-MM-DD HH:mm'),
+      newEventEnd: end.format('YYYY-MM-DD HH:mm'),
+    });
   }
 
   handleEventClick = (event) => {
@@ -141,12 +142,7 @@ class Calendar extends React.Component {
   }
 }
 
-function select() {
-  return {
-  };
-}
-
-export default connect(select, {
+export default connect(null, {
   push,
   removeEvent,
 })(Calendar);
