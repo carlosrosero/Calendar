@@ -1,10 +1,13 @@
 // libs
 import React, {PropTypes} from 'react';
+import cn from 'classnames';
 
 export default function FormGroupInput({input, label, type, meta: {touched, error, warning}}) {
-  return (<div className="form-group">
+  console.log('error', error);
+  const showError = touched && error;
+  return (<div className={cn('form-group', {'has-error': showError})}>
     <input {...input} placeholder={label} type={type} className="form-control" />
-    {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+    {showError && (<span className="text-danger">{error}</span>)}
   </div>);
 }
 FormGroupInput.propTypes = {

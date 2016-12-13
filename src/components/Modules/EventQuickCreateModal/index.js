@@ -33,7 +33,7 @@ class EventQuickCreateModal extends React.Component {
         <EventQuickCreateForm onCreated={this.props.onHide} start={start} end={end} />
 
         <div className="form-footer no-bottom-padding">
-          <Button onClick={this.submitForm}>Submit</Button>
+          <Button onClick={this.submitForm} category="primary">Save</Button>
         </div>
       </div>
     </Modal>);

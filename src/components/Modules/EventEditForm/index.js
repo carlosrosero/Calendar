@@ -15,8 +15,6 @@ import styles from './index.css';
 class EventEditForm extends React.Component {
   static propTypes = {
     // injected by redux-form
-    pristine: PropTypes.bool.isRequired,
-    submitting: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     // injected by mapDispatchToProps
     createEvent: PropTypes.func.isRequired,
@@ -35,7 +33,7 @@ class EventEditForm extends React.Component {
   }
 
   render() {
-    const {allDayValue, handleSubmit, pristine, submitting} = this.props;
+    const {allDayValue, handleSubmit} = this.props;
 
     return (<form onSubmit={handleSubmit(this.submitForm)}>
       <Field name="id" component={FormGroups.Hidden} />
@@ -54,7 +52,7 @@ class EventEditForm extends React.Component {
 
       <div className="form-footer">
         <LinkButton href="/calendar">Cancel</LinkButton>
-        <Button type="submit" disabled={pristine || submitting}>Submit</Button>
+        <Button type="submit" category="primary">Save</Button>
       </div>
     </form>);
   }

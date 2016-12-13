@@ -13,9 +13,20 @@ class EventViewModal extends React.Component {
     onHide: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
   };
-  state = {show: false};
+  state = {
+    show: false,
+    showRemoveConfirmation: false,
+  };
 
   handleRemoveClicked = () => {
+    this.setState({showRemoveConfirmation: true});
+  }
+
+  handleRemoveCancelled = () => {
+    this.setState({showRemoveConfirmation: false});
+  }
+
+  handleRemoveConfirmed = () => {
     this.props.onRemove(this.props.event);
   }
 
@@ -24,6 +35,7 @@ class EventViewModal extends React.Component {
     if (!event) {
       return null;
     }
+    const {showRemoveConfirmation} = this.state;
 
     return (<Modal
       show={show}
@@ -34,8 +46,14 @@ class EventViewModal extends React.Component {
         <DateTimeInterval start={event.start} end={event.end} />
 
         <div className="form-footer no-bottom-padding">
-          <Button onClick={this.handleRemoveClicked}>Remove</Button>
-          <LinkButton href={`/calendar/event/${event.id}`}>Edit</LinkButton>
+          {showRemoveConfirmation ? ([
+            <span className="pull-left text-danger">Are you sure?</span>,
+            <Button onClick={this.handleRemoveCancelled}>Cancel</Button>,
+            <Button onClick={this.handleRemoveConfirmed} category="danger">Yes, remove</Button>,
+          ]) : ([
+            <Button onClick={this.handleRemoveClicked}>Remove</Button>,
+            <LinkButton href={`/calendar/event/${event.id}`}>Edit</LinkButton>,
+          ])}
         </div>
       </div>
     </Modal>);
