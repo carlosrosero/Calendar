@@ -1,19 +1,24 @@
 // libs
 import React from 'react';
 // components
+import {Link} from 'react-router';
 import TopNavItem from 'components/Base/TopNavItem';
-// other
-import styles from './index.css';
+import {Navbar, NavItem, Nav} from 'react-bootstrap';
 
 export default function TopNav() {
-  return (<nav className="navbar navbar-default navbar-fixed-top">
-    <div className="container-fluid">
-      <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul className="nav navbar-nav navbar-right">
+  return (
+    <Navbar collapseOnSelect>
+      <Navbar.Header>
+        <Navbar.Brand>
+          Calendar
+        </Navbar.Brand>
+        <Navbar.Toggle />
+      </Navbar.Header>
+      <Navbar.Collapse>
+        <Nav pullRight>
           <TopNavItem href="/calendar/week" label="Calendar" />
-          <TopNavItem href="/help" label="About" />
-        </ul>
-      </div>
-    </div>
-  </nav>);
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  );
 }

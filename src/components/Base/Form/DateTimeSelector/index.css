@@ -1,3 +1,6 @@
 .datePickerInput {
   width: 120px;
+  @media (max-width: 768px) {
+    width: 185px;
+  }
 }

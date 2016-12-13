@@ -42,7 +42,6 @@ class CalendarWeekPage extends React.Component {
 }
 
 function select(state, ownProps) {
-  console.log('state', state.entities);
   const {date} = ownProps.location.query;
   return {
     defaultDate: date ? new Date(date) : new Date(),

@@ -10,35 +10,35 @@ import {
   UPDATE_EVENT,
 } from 'actions/Event';
 import api from 'helpers/Api';
-import {fetchEntity} from 'helpers/sagas';
+import {apiRequest} from 'helpers/sagas';
 
 export const schemas = {
   event: new Schema('events'),
 };
 
 const eventApi = {
-  post: fetchEntity.bind(null, actionCreators.create, (action) => {
+  post: apiRequest.bind(null, actionCreators.create, (action) => {
     return api.post({
       endpoint: 'events',
       schema: schemas.event,
       data: action.data,
     });
   }),
-  put: fetchEntity.bind(null, actionCreators.update, (data) => {
+  put: apiRequest.bind(null, actionCreators.update, (data) => {
     return api.put({
       endpoint: 'events',
       schema: schemas.event,
       data,
     });
   }),
-  getAll: fetchEntity.bind(null, actionCreators.fetchAll, (query) => {
+  getAll: apiRequest.bind(null, actionCreators.fetchAll, (query) => {
     return api.get({
       endpoint: 'events',
       schema: arrayOf(schemas.event),
       query,
     });
   }),
-  remove: fetchEntity.bind(null, actionCreators.remove, (id) => {
+  remove: apiRequest.bind(null, actionCreators.remove, (id) => {
     return api.delete({
       endpoint: 'events',
       id,

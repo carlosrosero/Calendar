@@ -16,7 +16,6 @@ export default [
     </Route>
     <Route path="calendar/event/:id" component={CalendarPage.CreateEvent} />
 
-    <Route path="help" component={HelpPage} />
     <Route path="404" component={NotFoundView} />
   </Route>,
 ];

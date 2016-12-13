@@ -1,6 +1,7 @@
 // libs
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import cn from 'classnames';
 // actions
 import {createEvent, updateEvent} from 'actions/Event';
 // components
@@ -42,7 +43,7 @@ class EventEditForm extends React.Component {
 
       <div className="form-group clearfix">
         <Field name="start" dateOnly={allDayValue} component={FormGroups.DateTimeSelector} />
-        <span className={styles.dashSeparator}>
+        <span className={cn(styles.dashSeparator, 'hidden-xs')}>
           —
         </span>
         <Field name="end" dateOnly={allDayValue} reverse component={FormGroups.DateTimeSelector} />

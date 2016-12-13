@@ -9,7 +9,7 @@ import Modal from 'components/Base/Modal';
 class EventViewModal extends React.Component {
   static propTypes = {
     show: PropTypes.bool,
-    event: PropTypes.object.isRequired,
+    event: PropTypes.object,
     onHide: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
   };

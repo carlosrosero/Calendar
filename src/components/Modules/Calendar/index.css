@@ -4,3 +4,19 @@
     overflow-y: auto;
   }
 }
+
+:global(.fc-day-header) {
+  font-size: 12px;
+}
+
+/*:global(.fc-toolbar) {
+  :global(.fc-left) {
+    @media (min-width: 768px) {
+      width: 100%;
+      :global(.fc-button-group) {
+        float: right;
+      }
+    }
+  }
+
+}*/

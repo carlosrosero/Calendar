@@ -15,14 +15,12 @@ import styles from './App.css';
 
 require('bootstrap/dist/css/bootstrap.css');
 // require('bootstrap/dist/css/bootstrap-theme.css');
-// TODO
-// require('normalize.css');
-require('./normalizes-overwrites.css');
+require('./global-styles.css');
 
 class App extends Component {
   static propTypes = {
     children: PropTypes.any.isRequired,
-    events: PropTypes.object,
+    events: PropTypes.array,
     fetchAllEvents: PropTypes.func.isRequired,
     updateEvent: PropTypes.func.isRequired,
   };
