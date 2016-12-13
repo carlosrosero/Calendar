@@ -9,6 +9,8 @@ import {removeEvent} from 'actions/Event';
 // components
 import EventQuickCreateModal from 'components/Modules/EventQuickCreateModal';
 import EventViewModal from 'components/Modules/EventViewModal';
+// other
+import './index.css';
 
 require('fullcalendar');
 require('fullcalendar/dist/fullcalendar.css');

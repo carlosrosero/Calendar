@@ -10,8 +10,8 @@ export default function TopNav() {
     <div className="container-fluid">
       <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul className="nav navbar-nav navbar-right">
-          <TopNavItem href="/calendar/week" label="Dashboard" />
-          <TopNavItem href="/help" label="Help" />
+          <TopNavItem href="/calendar/week" label="Calendar" />
+          <TopNavItem href="/help" label="About" />
         </ul>
       </div>
     </div>

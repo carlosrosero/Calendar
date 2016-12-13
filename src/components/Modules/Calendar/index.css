@@ -1,0 +1,6 @@
+:global(.fc-time-grid-container) {
+  &:global(.fc-scroller) {
+    height: auto!important;
+    overflow-y: auto;
+  }
+}
