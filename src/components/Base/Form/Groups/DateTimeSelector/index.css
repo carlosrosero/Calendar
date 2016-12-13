@@ -1,6 +1,10 @@
 .wrapper {
   display: inline-block;
   width: 227px;
+
+  &.dateOnly {
+    width: 123px;
+  }
 }
 
 .error {

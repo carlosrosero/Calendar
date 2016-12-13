@@ -5,6 +5,8 @@ import LinkButton from 'components/Base/LinkButton';
 import Button from 'components/Base/Form/Button';
 import DateTimeInterval from 'components/Base/DateTimeInterval';
 import Modal from 'components/Base/Modal';
+// other
+import styles from './index.css';
 
 class EventViewModal extends React.Component {
   static propTypes = {
@@ -30,14 +32,17 @@ class EventViewModal extends React.Component {
       onHide={this.props.onHide}
     >
       <div>
-        <h3>{event.title}</h3>
+        <button type="button" className="close" onClick={this.props.onHide}>
+          <span>&times;</span>
+        </button>
+        <h4 className={styles.title}>{event.title}</h4>
 
+        <span className="text-muted">When</span>
         <p>
           <DateTimeInterval start={event.start} end={event.end} />
         </p>
 
-        <div>
-          <Button onClick={this.props.onHide}>Cancel</Button>
+        <div className="form-footer no-bottom-padding">
           <Button onClick={this.handleRemoveClicked}>Remove</Button>
           <LinkButton href={`/calendar/event/${event.id}`}>Edit</LinkButton>
         </div>

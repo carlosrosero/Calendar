@@ -6,7 +6,7 @@ import cn from 'classnames';
 import TimeSelector from 'components/Base/Form/TimeSelector';
 import DatePicker from 'react-datepicker';
 // other
-import {getTimeFromDate, isValidDate} from 'helpers/DateTime';
+import {isValidDate} from 'helpers/DateTime';
 import styles from './index.css';
 import 'react-datepicker/dist/react-datepicker.css';
 

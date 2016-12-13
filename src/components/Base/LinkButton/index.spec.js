@@ -1,7 +1,6 @@
 import React from 'react';
 import test from 'ava';
 import {shallow} from 'enzyme';
-import sinon from 'sinon';
 import {Link} from 'react-router';
 import LinkButton from './index.js';
 

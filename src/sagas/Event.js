@@ -17,11 +17,11 @@ export const schemas = {
 };
 
 const eventApi = {
-  post: fetchEntity.bind(null, actionCreators.create, (data) => {
+  post: fetchEntity.bind(null, actionCreators.create, (action) => {
     return api.post({
       endpoint: 'events',
       schema: schemas.event,
-      data,
+      data: action.data,
     });
   }),
   put: fetchEntity.bind(null, actionCreators.update, (data) => {
@@ -47,8 +47,8 @@ const eventApi = {
 };
 
 
-export function* createEvent(eventData) {
-  yield call(eventApi.post, eventData);
+export function* createEvent(data, redirectToCalendar) {
+  yield call(eventApi.post, {data, redirectToCalendar});
 }
 
 export function* updateEvent(eventData) {
@@ -68,8 +68,8 @@ export function* watchCreateEvent() {
   /* eslint-disable no-constant-condition */
   while (true) {
   /* eslint-enable no-constant-condition */
-    const eventAction = yield take(CREATE_EVENT);
-    yield fork(createEvent, eventAction.data);
+    const {data, redirectToCalendar} = yield take(CREATE_EVENT);
+    yield fork(createEvent, data, redirectToCalendar);
   }
 }
 
@@ -105,7 +105,7 @@ export function* watchEventCreated() {
   while (true) {
   /* eslint-enable no-constant-condition */
     const action = yield take(eventActionTypes.create.SUCCESS);
-    if (action.redirectToCalendar) {
+    if (action.originalAction.redirectToCalendar) {
       yield put(push('/calendar'));
     }
   }

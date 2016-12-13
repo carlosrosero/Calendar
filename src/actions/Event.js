@@ -15,24 +15,24 @@ export const FETCH_ALL_EVENTS = '@EVENTS/FETCH_ALL';
 
 export const actionCreators = {
   create: {
-    request: () => action(actionTypes.create.REQUEST, {}),
-    success: (id, response) => action(actionTypes.create.SUCCESS, {response}),
-    failure: (id, error) => action(actionTypes.create.FAILURE, {error}),
+    request: (originalAction) => action(actionTypes.create.REQUEST, {originalAction}),
+    success: (originalAction, response) => action(actionTypes.create.SUCCESS, {originalAction, response}),
+    failure: (originalAction, error) => action(actionTypes.create.FAILURE, {originalAction, error}),
   },
   update: {
-    request: (id) => action(actionTypes.update.REQUEST, {id}),
-    success: (id, response) => action(actionTypes.update.SUCCESS, {response}),
-    failure: (id, error) => action(actionTypes.update.FAILURE, {error}),
+    request: (originalAction) => action(actionTypes.update.REQUEST, {originalAction}),
+    success: (originalAction, response) => action(actionTypes.update.SUCCESS, {originalAction, response}),
+    failure: (originalAction, error) => action(actionTypes.update.FAILURE, {originalAction, error}),
   },
   fetchAll: {
-    request: () => action(actionTypes.fetchAll.REQUEST, {}),
-    success: (id, response) => action(actionTypes.fetchAll.SUCCESS, {response}),
-    failure: (id, error) => action(actionTypes.fetchAll.FAILURE, {error}),
+    request: (originalAction) => action(actionTypes.fetchAll.REQUEST, {originalAction}),
+    success: (originalAction, response) => action(actionTypes.fetchAll.SUCCESS, {originalAction, response}),
+    failure: (originalAction, error) => action(actionTypes.fetchAll.FAILURE, {originalAction, error}),
   },
   remove: {
-    request: (id) => action(actionTypes.remove.REQUEST, {id}),
-    success: (id, response) => action(actionTypes.remove.SUCCESS, {response}),
-    failure: (id, error) => action(actionTypes.remove.FAILURE, {error}),
+    request: (originalAction) => action(actionTypes.remove.REQUEST, {originalAction}),
+    success: (originalAction, response) => action(actionTypes.remove.SUCCESS, {originalAction, response}),
+    failure: (originalAction, error) => action(actionTypes.remove.FAILURE, {originalAction, error}),
   },
 };
 

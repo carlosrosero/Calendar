@@ -81,7 +81,7 @@ function validate(values) {
   const endDate = new Date(values.end);
   const isEndDateLessThanStart = values.allDay ? (+startDate > +endDate) : (+startDate >= +endDate);
   if (isStartDateValid && isEndDateValid && isEndDateLessThanStart) {
-    errors.start = 'End date must be greater than Start date';
+    errors.start = 'Start date must be early than the End date';
   }
   console.log('errors', errors);
 

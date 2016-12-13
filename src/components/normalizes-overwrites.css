@@ -20,6 +20,10 @@ html {
   padding-left: 0 !important;
 }
 
+:global(.no-bottom-padding) {
+  padding-bottom: 0 !important;
+}
+
 :global(.no-paddings) {
   padding-left: 0 !important;
   padding-right: 0 !important;

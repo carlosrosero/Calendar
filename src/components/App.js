@@ -16,7 +16,7 @@ import styles from './App.css';
 require('bootstrap/dist/css/bootstrap.css');
 // require('bootstrap/dist/css/bootstrap-theme.css');
 // TODO
-require('normalize.css');
+// require('normalize.css');
 require('./normalizes-overwrites.css');
 
 class App extends Component {

@@ -6,18 +6,18 @@ import {put, call} from 'redux-saga/effects';
 // apiFn  : api.fetchUser | api.fetchRepo | ...
 // id     : login | fullName
 // url    : next page url. If not provided will use pass it to apiFn
-export function* fetchEntity(entity, apiFn, id, url) {
+export function* fetchEntity(entity, apiFn, data) {
   try {
-    yield put(entity.request(id));
-    const {response, error, statusCode} = yield call(apiFn, url || id);
+    yield put(entity.request(data));
+    const {response, error, statusCode} = yield call(apiFn, data);
     console.log('response, error, statusCode', response, error, statusCode);
     if (response) {
-      yield put(entity.success(id, response));
+      yield put(entity.success(data, response));
     } else {
-      yield put(entity.failure(id, error, statusCode));
+      yield put(entity.failure(data, error, statusCode));
     }
   } catch (error) {
     console.log('error', error);
-    yield put(entity.failure(id, error));
+    yield put(entity.failure(data, error));
   }
 }
