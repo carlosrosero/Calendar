@@ -7,13 +7,17 @@ import Modal from './index.js';
 
 test('Modal', (t) => {
   const props = {
+    title: 'My modal',
     show: false,
     onHide: sinon.spy(),
   };
 
-  let el = shallow(<Modal {...props}>Modal content</Modal>);
+  let el = shallow(<Modal {...props}>
+    <div className="some-modal-content-class" />
+  </Modal>);
   t.is(el.type(), OverlayModal, 'Must render `OverlayModal` component as root.');
-  t.is(el.children().text(), 'Modal content', 'Must render `Modal content` as children.');
+  t.is(el.find('h4').text(), props.title, 'Must render `My modal` as title.');
+  t.is(el.find('div.some-modal-content-class').length, 1, 'Must render div with the `some-modal-content-class` class as children.');
   t.is(el.props().show, false, 'Must have `show` prop set to `false`.');
 
   t.is(props.onHide.calledOnce, false, 'Must not call `onHide` if it is hiding');
@@ -23,7 +27,11 @@ test('Modal', (t) => {
 
   // change props and check them again
   props.show = true;
-  el = shallow(<Modal {...props}>Why am I not sleeping?</Modal>);
-  t.is(el.children().text(), 'Why am I not sleeping?', 'Must render `Why am I not sleeping?` as children.');
+  props.title = 'New title';
+  el = shallow(<Modal {...props}>
+    <div className="cool-custom-class-123" />
+  </Modal>);
+  t.is(el.find('h4').text(), props.title, 'Must render `New title` as title.');
+  t.is(el.find('div.cool-custom-class-123').length, 1, 'Must render div with the `cool-custom-class-123` class as children.');
   t.is(el.props().show, true, 'Must have `show` prop set to `true`.');
 });

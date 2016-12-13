@@ -25,14 +25,14 @@ class EventQuickCreateModal extends React.Component {
   render() {
     const {start, end, show} = this.props;
     return (<Modal
+      title="New Event"
       show={show}
       onHide={this.props.onHide}
     >
       <div>
         <EventQuickCreateForm onCreated={this.props.onHide} start={start} end={end} />
 
-        <div>
-          <Button onClick={this.props.onHide}>Cancel</Button>
+        <div className="form-footer no-bottom-padding">
           <Button onClick={this.submitForm}>Submit</Button>
         </div>
       </div>

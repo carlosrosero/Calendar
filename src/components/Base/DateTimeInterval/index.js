@@ -5,7 +5,12 @@ import 'twix';
 
 export default function DateTimeInterval({start, end}) {
   const range = moment(start).twix(end);
-  return <span>{range.format()}</span>;
+  return (<div>
+    <span className="text-muted">When</span>
+    <p>
+      {range.format()}
+    </p>
+  </div>);
 }
 DateTimeInterval.propTypes = {
   start: PropTypes.oneOfType([

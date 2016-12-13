@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {createEvent} from 'actions/Event';
 // components
 import {Field, reduxForm} from 'redux-form';
+import DateTimeInterval from 'components/Base/DateTimeInterval';
 import * as FormGroups from 'components/Base/Form/Groups';
 
 class EventQuickCreateForm extends React.Component {
@@ -34,7 +35,7 @@ class EventQuickCreateForm extends React.Component {
     return (<form onSubmit={handleSubmit} className="form">
       <Field name="title" type="text" label="title" component={FormGroups.Input} />
 
-      <div>From {start} to {end}</div>
+      <DateTimeInterval start={start} end={end} />
       <Field name="start" component={FormGroups.Hidden} />
       <Field name="end" component={FormGroups.Hidden} />
     </form>);

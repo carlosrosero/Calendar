@@ -21,3 +21,8 @@
   padding: 20px;
   z-index: 9999999;
 }
+
+.title {
+  overflow: hidden;
+  color: #4DB810;
+}
