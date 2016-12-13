@@ -10,7 +10,7 @@ import {
   UPDATE_EVENT,
 } from 'actions/Event';
 import api from 'helpers/Api';
-import {apiRequest} from 'helpers/sagas';
+import {apiRequest} from 'helpers/Sagas';
 
 export const schemas = {
   event: new Schema('events'),

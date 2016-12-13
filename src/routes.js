@@ -3,7 +3,6 @@ import {Route, Redirect, IndexRedirect} from 'react-router';
 
 import App from 'components/App';
 import * as CalendarPage from 'components/Screens/Calendar';
-import HelpPage from 'components/Screens/Help';
 import NotFoundView from 'components/Screens/NotFound';
 
 export default [

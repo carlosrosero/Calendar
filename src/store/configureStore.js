@@ -6,7 +6,7 @@ import {routerMiddleware} from 'react-router-redux';
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved */
 import rootReducer from 'reducers';
 /* eslint-enable import/no-extraneous-dependencies, import/no-unresolved */
-import {withBasename} from 'helpers/history';
+import {withBasename} from 'helpers/History';
 
 export default function configureStore(initialState) {
   const sagaMiddleware = createSagaMiddleware();

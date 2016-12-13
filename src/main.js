@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import configureStore from 'store/configureStore';
 import {Router, browserHistory} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
-import {withBasename} from 'helpers/history';
+import {withBasename} from 'helpers/History';
 import rootSaga from './sagas';
 import routes from './routes';
 

@@ -14,8 +14,7 @@ import * as notifications from 'helpers/Notification';
 import styles from './App.css';
 
 require('bootstrap/dist/css/bootstrap.css');
-// require('bootstrap/dist/css/bootstrap-theme.css');
-require('./global-styles.css');
+require('styles/global-styles.css');
 
 class App extends Component {
   static propTypes = {

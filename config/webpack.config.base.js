@@ -31,11 +31,7 @@ module.exports = {
         }),
         require('postcss-nested'),
         require('lost'),
-        require('postcss-simple-vars')({
-          variables: function () {
-            return require(PATHS.app + '/styles/colors.js');
-          }
-      }),
+        require('postcss-simple-vars')({}),
       ];
     },
     module: {

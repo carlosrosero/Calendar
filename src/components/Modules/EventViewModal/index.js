@@ -47,12 +47,12 @@ class EventViewModal extends React.Component {
 
         <div className="form-footer no-bottom-padding">
           {showRemoveConfirmation ? ([
-            <span className="pull-left text-danger">Are you sure?</span>,
-            <Button onClick={this.handleRemoveCancelled}>Cancel</Button>,
-            <Button onClick={this.handleRemoveConfirmed} category="danger">Yes, remove</Button>,
+            <span className="pull-left text-danger" key="1">Are you sure?</span>,
+            <Button onClick={this.handleRemoveCancelled} key="2">Cancel</Button>,
+            <Button onClick={this.handleRemoveConfirmed} category="danger" key="3">Yes, remove</Button>,
           ]) : ([
-            <Button onClick={this.handleRemoveClicked}>Remove</Button>,
-            <LinkButton href={`/calendar/event/${event.id}`}>Edit</LinkButton>,
+            <Button onClick={this.handleRemoveClicked} key="1">Remove</Button>,
+            <LinkButton href={`/calendar/event/${event.id}`} key="2">Edit</LinkButton>,
           ])}
         </div>
       </div>

@@ -27,7 +27,8 @@
     "lint": "eslint ./src --ext .js",
     "jscs": "jscs src/js/",
     "test": "env NODE_PATH=src ava",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "deploy": "./bin/gh-pages-deploy.sh"
   },
   "devDependencies": {
     "ava": "0.16.0",

@@ -1,6 +1,6 @@
 .active {
   font-weight: bold;
   @media (min-width: 768px) {
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid #9FB8AD;
   }
 }
