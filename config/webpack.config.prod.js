@@ -46,7 +46,7 @@ module.exports = _.merge(baseConfig.config, {
     publicPath: '/',
   },
   externals: {
-    'moment': 'moment',
+    // 'moment': 'moment',
   },
   stats: {
     colors: true,
