@@ -3,7 +3,7 @@ import {normalize} from 'normalizr';
 import localStorageApi from './localStorage';
 
 const api = {
-  buildEndpoint: (endpoint) => `react-calendar-app/${endpoint}`,
+  buildEndpoint: (endpoint) => `apedyashev-react-calendar-app/${endpoint}`,
   // created a new entity
   post: ({endpoint, data, schema}) => {
     // TOOD: throw instead of reject?

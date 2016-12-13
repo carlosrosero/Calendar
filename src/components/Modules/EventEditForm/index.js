@@ -10,6 +10,7 @@ import Button from 'components/Base/Form/Button';
 import LinkButton from 'components/Base/LinkButton';
 // other
 import {isValidDate} from 'helpers/DateTime';
+import styles from './index.css';
 
 class EventEditForm extends React.Component {
   static propTypes = {
@@ -36,25 +37,23 @@ class EventEditForm extends React.Component {
   render() {
     const {allDayValue, handleSubmit, pristine, submitting} = this.props;
 
-    return (<form onSubmit={handleSubmit(this.submitForm)} className="form-horizontal">
+    return (<form onSubmit={handleSubmit(this.submitForm)}>
       <Field name="id" component={FormGroups.Hidden} />
 
       <Field name="title" type="text" label="title" component={FormGroups.Input} />
 
-      <div className="form-group">
-        <label className="col-sm-2 control-label">Dates</label>
-        <div className="col-sm-4">
-          <Field name="start" dateOnly={allDayValue} component={FormGroups.DateTimeSelector} />
-        </div>
-        <div className="col-sm-4">
-          <Field name="end" dateOnly={allDayValue} reverse component={FormGroups.DateTimeSelector} />
-        </div>
+      <div className="form-group clearfix">
+        <Field name="start" dateOnly={allDayValue} component={FormGroups.DateTimeSelector} />
+        <span className={styles.dashSeparator}>
+          —
+        </span>
+        <Field name="end" dateOnly={allDayValue} reverse component={FormGroups.DateTimeSelector} />
       </div>
 
       <Field name="allDay" label="All day" component={FormGroups.Checkbox} />
 
-      <div>
-        <LinkButton href="/calendar">Back</LinkButton>
+      <div className="form-footer">
+        <LinkButton href="/calendar">Cancel</LinkButton>
         <Button type="submit" disabled={pristine || submitting}>Submit</Button>
       </div>
     </form>);

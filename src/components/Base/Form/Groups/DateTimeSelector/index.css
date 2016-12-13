@@ -1,0 +1,8 @@
+.wrapper {
+  display: inline-block;
+  width: 227px;
+}
+
+.error {
+  display: table;
+}

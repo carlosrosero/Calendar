@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import {fetchAllEvents} from 'actions/Event';
 // components
 import EventEditForm from 'components/Modules/EventEditForm';
+// other
+import styles from './index.css';
 
 // TODO: bad name
 class CreateEventPage extends React.Component {
@@ -23,7 +25,7 @@ class CreateEventPage extends React.Component {
 
   render() {
     const {event} = this.props;
-    return (<div className="container">
+    return (<div className={styles.container}>
       <EventEditForm event={event} />
     </div>);
   }

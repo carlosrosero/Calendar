@@ -6,3 +6,25 @@
 html {
   font-size: 14px;
 }
+
+:global(.form-footer) {
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+  padding: 15px;
+  :global(.btn+.btn) {
+    margin-left: 10px;
+  }
+}
+
+:global(.no-left-padding) {
+  padding-left: 0 !important;
+}
+
+:global(.no-paddings) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+:global(.text-align-center) {
+  text-align: center;
+}

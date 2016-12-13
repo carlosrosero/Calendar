@@ -5,9 +5,7 @@ import Checkbox from 'components/Base/Form/Checkbox';
 
 export default function FormGroupCheckbox({input, label}) {
   return (<div className="form-group">
-    <div className="col-sm-offset-2 col-sm-10">
-      <Checkbox {...input} label={label} />
-    </div>
+    <Checkbox {...input} label={label} />
   </div>);
 }
 FormGroupCheckbox.propTypes = {

@@ -1,11 +1,13 @@
 // libs
 import React, {PropTypes} from 'react';
 import moment from 'moment';
+import cn from 'classnames';
 // components
 import TimeSelector from 'components/Base/Form/TimeSelector';
 import DatePicker from 'react-datepicker';
 // other
 import {getTimeFromDate, isValidDate} from 'helpers/DateTime';
+import styles from './index.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
 class DateTimeSelector extends React.Component {
@@ -100,26 +102,28 @@ class DateTimeSelector extends React.Component {
     console.log('dateOnly', dateOnly, this.state.date, this.state.time);
     // TODO: disable past dates
     const controls = [
-      <div className="col-xs-6" key="1">
-        <DatePicker
-          showWeekNumbers
-          locale="en-gb"
-          className="form-control input-sm"
-          selected={this.state.date}
-          onChange={this.handleDateSelected}
-          onBlur={() => { this.handleBlur(this.props); }}
-        />
-      </div>,
+      <DatePicker
+        key="1"
+        showWeekNumbers
+        locale="en-gb"
+        className={cn('form-control input-sm', styles.datePickerInput)}
+        selected={this.state.date}
+        onChange={this.handleDateSelected}
+        onBlur={() => { this.handleBlur(this.props); }}
+      />,
     ];
     if (!dateOnly) {
-      controls.push(<div className="col-xs-4" key="2">
-        <TimeSelector value={time} onChange={this.handleTimeSelected} onBlur={() => { this.handleBlur(this.props); }} />
-      </div>);
+      controls.push(<TimeSelector
+        key="2"
+        value={time}
+        onChange={this.handleTimeSelected}
+        onBlur={() => { this.handleBlur(this.props); }}
+      />);
     }
 
-    return (<div className="row">
+    return (<span>
       {reverse ? controls.reverse() : controls}
-    </div>);
+    </span>);
   }
 }
 

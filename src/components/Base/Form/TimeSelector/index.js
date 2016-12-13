@@ -1,6 +1,9 @@
 // libs
 import React, {PropTypes} from 'react';
+import cn from 'classnames';
 import _ from 'lodash';
+// other
+import styles from './index.css';
 
 export default function TimeSelector({value, onChange, onBlur}) {
   // generate time range
@@ -15,7 +18,7 @@ export default function TimeSelector({value, onChange, onBlur}) {
   }).flatten().value();
 
   return (<select
-    className="form-control input-sm"
+    className={cn('form-control input-sm', styles.select)}
     value={value}
     onChange={(event) => { onChange(event.target.value); }}
     onBlur={onBlur}
