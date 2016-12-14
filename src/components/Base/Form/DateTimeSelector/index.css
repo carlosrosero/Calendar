@@ -1,10 +1,15 @@
 .datePickerInput {
   width: 120px;
   @media (max-width: 768px) {
-    width: 185px;
+    width: 183px;
   }
 }
 
-.timeSelector {
-  float: right;
+.wrapper {
+  > {
+    &:last-child {
+      margin: 0 3px;
+      float: right;
+    }
+  }
 }

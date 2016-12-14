@@ -98,7 +98,6 @@ class DateTimeSelector extends React.Component {
   render() {
     const {time} = this.state;
     const {reverse, dateOnly} = this.props;
-    // TODO: disable past dates
     const controls = [
       <DatePicker
         key="1"
@@ -120,7 +119,7 @@ class DateTimeSelector extends React.Component {
       />);
     }
 
-    return (<span>
+    return (<span className={styles.wrapper}>
       {reverse ? controls.reverse() : controls}
     </span>);
   }
