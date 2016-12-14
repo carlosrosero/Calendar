@@ -1,42 +1,33 @@
-/* eslint prefer-template: "off", object-shorthand: "off" */
-const path = require('path');
-const webpack = require('webpack');
-const _ = require('lodash');
-const baseConfig = require('./webpack.config.base.js');
+var path = require('path');
+var webpack = require('webpack');
+var _ = require('lodash');
 
-const plugins = [
-  // Shared code
-  new webpack.optimize.CommonsChunkPlugin('vendor', 'js/vendor.bundle.js'),
-  // Avoid publishing files when compilation fails
-  new webpack.NoErrorsPlugin(),
-  new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify('development'),
-    __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
-  }),
-  new webpack.optimize.OccurenceOrderPlugin(),
-];
+var baseConfig = require('./webpack.config.base');
 
-module.exports = _.merge(baseConfig.config, {
-  env: process.env.NODE_ENV,
-  entry: {
-    app: path.resolve(baseConfig.PATHS.app, 'main.js'),
-    vendor: ['react'],
-  },
-  output: {
-    path: baseConfig.PATHS.build,
-    filename: 'js/[name].js',
-    publicPath: '/',
-  },
-  stats: {
-    colors: true,
-    reasons: true,
-  },
-  plugins: plugins,
-  devServer: {
-    contentBase: path.resolve(__dirname, '../src'),
-    port: 3000,
-    host: '0.0.0.0',
-    historyApiFallback: true,
-  },
-  devtool: 'eval',
+var config = _.merge({
+  entry: [
+    'webpack-dev-server/client?http://0.0.0.0:3000',
+    // 'webpack/hot/only-dev-server',
+    path.resolve('./src/main.js')
+  ],
+  cache: true,
+  devtool: '#eval-source-map',
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"development"'
+      }
+    })
+  ]
+}, baseConfig);
+
+// Add needed loaders
+config.module.loaders.push({
+  test: /\.(js|jsx)$/,
+  loaders: ['babel'],
+  include: path.join(__dirname, '/../src')
 });
+
+module.exports = config;

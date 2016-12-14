@@ -1,64 +1,39 @@
-/* eslint prefer-template: "off", object-shorthand: "off" */
-const path = require('path');
-const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
-const _ = require('lodash');
-const baseConfig = require('./webpack.config.base.js');
+var path = require('path');
+var webpack = require('webpack');
+var _ = require('lodash');
+var WebpackStrip = require('webpack-strip')
+var baseConfig = require('./webpack.config.base.js');
 
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+var config = _.merge({
+  entry: path.join(__dirname, '../src/main'),
+  cache: true,
+  plugins: [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.DefinePlugin({
+      __BASENAME__: JSON.stringify(process.env.PROJECT_SUBDIR || ''),
+      'process.env.NODE_ENV': '"production"',
+      __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: true,
+      sourcemap: false,
+      compress: {
+        warnings: false,
+      }
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
+}, baseConfig);
 
-const plugins = [
-  new CopyWebpackPlugin([
-    {
-      from: baseConfig.PATHS.images,
-      to: 'images',
-    },
-  ]),
-  // Shared code
-  new webpack.optimize.CommonsChunkPlugin('vendor', 'js/vendor.bundle.js'),
-  // Avoid publishing files when compilation fails
-  new webpack.NoErrorsPlugin(),
-  new webpack.DefinePlugin({
-    __BASENAME__: JSON.stringify(process.env.PROJECT_SUBDIR || ''),
-    'process.env.NODE_ENV': JSON.stringify('production'),
-    __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
-  }),
-  new webpack.optimize.OccurenceOrderPlugin(),
-  new webpack.optimize.DedupePlugin(),
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-    },
-  }),
-  // This plugin moves all the CSS into a separate stylesheet
-  // new ExtractTextPlugin('css/app.css', {allChunks: true}),
-];
-module.exports = _.merge(baseConfig.config, {
-  entry: {
-    app: path.resolve(baseConfig.PATHS.app, 'main.js'),
-    vendor: ['react'],
-  },
-  // entry: path.resolve(baseConfig.PATHS.app, 'main.js'),
-  output: {
-    path: baseConfig.PATHS.build,
-    filename: 'js/[name].js',
-    publicPath: '/',
-  },
-  externals: {
-    // 'moment': 'moment',
-  },
-  stats: {
-    colors: true,
-  },
-  resolve: {
-    // We can now require('file') instead of require('file.jsx')
-    extensions: ['', '.js', '.jsx', '.scss', '.css'],
-  },
-  module: {
-    noParse: /\.min\.js$/,
-  },
-  plugins: plugins,
-  // TODO: do we need this for production?
-  // devtool: 'source-map',
+config.module.loaders.push({
+  test: /\.(js|jsx)$/,
+  loader: 'babel',
+  include: path.join(__dirname, '/../src')
+}, {
+  test: /\.js$/, loader: WebpackStrip.loader('debug', 'console.log', 'console.debug')
 });
+
+module.exports = config;
