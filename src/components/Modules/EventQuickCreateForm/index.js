@@ -16,8 +16,6 @@ class EventQuickCreateForm extends React.Component {
     end: PropTypes.string.isRequired,
     // injected by redux-form
     handleSubmit: PropTypes.func.isRequired,
-    // injected by mapDispatchToProps
-    // createEvent: PropTypes.func.isRequired,
     // injected by mapStateToProps
     submitStatus: PropTypes.string.isRequired,
   };

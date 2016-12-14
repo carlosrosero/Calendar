@@ -9,7 +9,6 @@ export function createRequestTypes(base) {
   }, {});
 }
 
-// TODO: del
 export function action(type, payload = {}) {
   return {type, ...payload};
 }

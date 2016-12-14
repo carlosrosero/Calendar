@@ -1,35 +1,42 @@
+/**
+  This helper provides CRUD methods to work with localStorage as with remove API
+
+  All the methods (except 'delete') accept `schema` and return Promise.
+  More about schemas: https://github.com/paularmstrong/normalizr
+*/
 import _ from 'lodash';
 import {normalize} from 'normalizr';
 import localStorageApi from './localStorage';
 
 const api = {
-  buildEndpoint: (endpoint) => `apedyashev-react-calendar-app/${endpoint}`,
-  // created a new entity
-  post: ({endpoint, data, schema}) => {
-    // TOOD: throw instead of reject?
+  _buildEndpoint: (endpoint) => `apedyashev-react-calendar-app/${endpoint}`,
+  _checkEndpoint: (endpoint) => {
     if (!_.isString(endpoint)) {
       throw new Error('endpoint must be specified');
     }
+  },
+
+  // created a new entity
+  post: ({endpoint, data, schema}) => {
+    this._checkEndpoint();
     if (!_.isPlainObject(data)) {
-      return Promise.reject({error: 'data must be a plain object'});
+      throw new Error('data must be a plain object');
     }
 
-    const prefixedEndpoint = api.buildEndpoint(endpoint);
+    const prefixedEndpoint = api._buildEndpoint(endpoint);
     const newItem = localStorageApi.addItemToCollection(prefixedEndpoint, data);
 
     return Promise.resolve({response: normalize(newItem, schema)});
   },
 
+  // update existing entity
   put: ({endpoint, data, schema}) => {
-    // TOOD: throw instead of reject?
-    if (!_.isString(endpoint)) {
-      throw new Error('endpoint must be specified');
-    }
+    this._checkEndpoint();
     if (!_.isPlainObject(data) || !data.id) {
-      return Promise.reject({error: 'data must be a plain object and have the id field'});
+      throw new Error('data must be a plain object and have the id field');
     }
 
-    const prefixedEndpoint = api.buildEndpoint(endpoint);
+    const prefixedEndpoint = api._buildEndpoint(endpoint);
     const item = localStorageApi.updateItemInCollection(prefixedEndpoint, data);
     if (!item) {
       return Promise.reject({error: `Item ${data.id} not found in ${endpoint}`});
@@ -38,12 +45,11 @@ const api = {
     return Promise.resolve({response: normalize(item, schema)});
   },
 
+  // read the data
   get: ({endpoint, schema, query}) => {
-    if (!_.isString(endpoint)) {
-      throw new Error('endpoint must be specified');
-    }
+    this._checkEndpoint();
 
-    const prefixedEndpoint = api.buildEndpoint(endpoint);
+    const prefixedEndpoint = api._buildEndpoint(endpoint);
     const dataFromLs = localStorageApi.fetchCollection(prefixedEndpoint, query);
     if (!dataFromLs) {
       const error = query ? `Nothing found in ${endpoint} for ${JSON.stringify(query)} query` :
@@ -54,12 +60,11 @@ const api = {
     return Promise.resolve({response: normalize(dataFromLs, schema)});
   },
 
+  // delete an entity by ID
   delete: ({endpoint, id}) => {
-    if (!_.isString(endpoint)) {
-      throw new Error('endpoint must be specified');
-    }
+    this._checkEndpoint();
 
-    const prefixedEndpoint = api.buildEndpoint(endpoint);
+    const prefixedEndpoint = api._buildEndpoint(endpoint);
     const isDeleted = localStorageApi.delete(prefixedEndpoint, id);
 
     return isDeleted ? Promise.resolve({response: {id}}) : Promise.reject({error: `Item ${id} was not found in ${endpoint}`});

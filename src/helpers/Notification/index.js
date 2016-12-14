@@ -1,3 +1,11 @@
+/**
+  This helper is for showing Desctop notifications in the browser
+
+  Usage:
+    import * as desctopNotificaton from 'helpers/Notification';
+    desctopNotificaton.requestPermission();
+    requestPermission.show('Message title', 'message body');
+*/
 // Notification polyfill
 import 'html5-notification/dist/Notification';
 

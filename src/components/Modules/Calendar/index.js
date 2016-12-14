@@ -125,9 +125,7 @@ class Calendar extends React.Component {
     this.setState({showEventViewModal: false, eventToBeViewed: null});
   }
 
-  /**
-  Fixes Firefox issue when end date is null for events with 30-mins duration
-  */
+  // Fixes Firefox issue when end date is null for events with 30-mins period
   fixEndDate(event) {
     if (!event.end) {
       event.end = moment(event.start).add(30, 'minutes').format('YYYY-MM-DD HH:mm');

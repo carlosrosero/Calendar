@@ -53,6 +53,7 @@ module.exports = {
     "react/forbid-prop-types": "off",
     "object-curly-spacing": "off",
     "babel/object-curly-spacing": "warn",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-underscore-dangle": "off"
   }
 }

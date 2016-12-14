@@ -2,7 +2,7 @@
   "name": "react-calendar-app",
   "description": "single-page-application that allows us to schedule events",
   "version": "0.0.1",
-  "author": "",
+  "author": "Alexey Pedyashev",
   "license": "MIT",
   "keywords": [
     "react",

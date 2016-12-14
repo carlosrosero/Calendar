@@ -1,12 +1,14 @@
 import moment from 'moment';
 import {createRequestTypes, action} from 'helpers/Actions';
 
+// async actions
 export const actionTypes = {
   create: createRequestTypes('EVENT/CREATE'),
   update: createRequestTypes('EVENT/UPDATE'),
   fetchAll: createRequestTypes('EVENT/FETCH_ALL'),
   remove: createRequestTypes('EVENT/REMOVE'),
 };
+
 export const CREATE_EVENT = '@EVENT/CREATE';
 export const UPDATE_EVENT = '@EVENT/UPDATE';
 export const REMOVE_EVENT = '@EVENT/REMOVE';
