@@ -8,7 +8,7 @@ export default function DateTimeInterval({start, end}) {
   return (<div>
     <span className="text-muted">When</span>
     <p>
-      {range.format()}
+      {end ? range.format() : moment(start).format('MMM D')}
     </p>
   </div>);
 }
@@ -22,5 +22,5 @@ DateTimeInterval.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
     PropTypes.instanceOf(moment),
-  ]).isRequired,
+  ]),
 };
