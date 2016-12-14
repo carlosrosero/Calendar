@@ -52,6 +52,7 @@ module.exports = {
     "jsx-a11y/label-has-for": "off",
     "react/forbid-prop-types": "off",
     "object-curly-spacing": "off",
-    "babel/object-curly-spacing": "warn"
+    "babel/object-curly-spacing": "warn",
+    "class-methods-use-this": "off"
   }
 }

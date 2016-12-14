@@ -4,3 +4,7 @@
     width: 185px;
   }
 }
+
+.timeSelector {
+  float: right;
+}

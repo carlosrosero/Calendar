@@ -1,6 +1,7 @@
 // libs
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import moment from 'moment';
 import cn from 'classnames';
 // actions
 import {createEvent, updateEvent} from 'actions/Event';
@@ -10,7 +11,6 @@ import * as FormGroups from 'components/Base/Form/Groups';
 import Button from 'components/Base/Form/Button';
 import LinkButton from 'components/Base/LinkButton';
 // other
-import {isValidDate} from 'helpers/DateTime';
 import styles from './index.css';
 
 class EventEditForm extends React.Component {
@@ -41,8 +41,8 @@ class EventEditForm extends React.Component {
       <Field name="title" type="text" label="title" component={FormGroups.Input} />
 
       <div className="form-group clearfix">
-        <Field name="start" dateOnly={allDayValue} component={FormGroups.DateTimeSelector} />
-        <span className={cn(styles.dashSeparator, 'hidden-xs')}>
+        <Field name="start" dateOnly={allDayValue} className="pull-left" component={FormGroups.DateTimeSelector} />
+        <span className={cn(styles.dashSeparator, 'hidden-xs pull-left')}>
           —
         </span>
         <Field name="end" dateOnly={allDayValue} reverse component={FormGroups.DateTimeSelector} />
@@ -64,18 +64,18 @@ function validate(values) {
     errors.title = 'Required';
   }
 
-  const isStartDateValid = isValidDate(values.start);
+  const isStartDateValid = moment(values.start).isValid();
   if (!isStartDateValid) {
     errors.start = 'Required';
   }
 
-  const isEndDateValid = isValidDate(values.end);
+  const isEndDateValid = moment(values.end).isValid();
   if (!isEndDateValid) {
     errors.end = 'Required';
   }
 
-  const startDate = new Date(values.start);
-  const endDate = new Date(values.end);
+  const startDate = moment(values.start).toDate();
+  const endDate = moment(values.end).toDate();
   const isEndDateLessThanStart = values.allDay ? (+startDate > +endDate) : (+startDate >= +endDate);
   if (isStartDateValid && isEndDateValid && isEndDateLessThanStart) {
     errors.start = 'Start date must be early than the End date';

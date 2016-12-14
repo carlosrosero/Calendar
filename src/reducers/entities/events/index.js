@@ -14,7 +14,6 @@ export default function events(state = initialState, action) {
       };
 
     case actionTypes.remove.SUCCESS:
-      console.log();
       return {
         ..._.omit(state, action.response.id),
       };

@@ -6,7 +6,6 @@ import cn from 'classnames';
 import TimeSelector from 'components/Base/Form/TimeSelector';
 import DatePicker from 'react-datepicker';
 // other
-import {isValidDate} from 'helpers/DateTime';
 import styles from './index.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -44,7 +43,7 @@ class DateTimeSelector extends React.Component {
 
   getNewStateFromProps = (props) => {
     const {value} = props;
-    if (isValidDate(value)) {
+    if (moment(value).isValid()) {
       const dateTime = moment(value);
       const time = dateTime.format('HH:mm');
       return {dateTime, date: dateTime, time};
@@ -99,7 +98,6 @@ class DateTimeSelector extends React.Component {
   render() {
     const {time} = this.state;
     const {reverse, dateOnly} = this.props;
-    console.log('dateOnly', dateOnly, this.state.date, this.state.time);
     // TODO: disable past dates
     const controls = [
       <DatePicker
@@ -116,6 +114,7 @@ class DateTimeSelector extends React.Component {
       controls.push(<TimeSelector
         key="2"
         value={time}
+        className={styles.timeSelector}
         onChange={this.handleTimeSelected}
         onBlur={() => { this.handleBlur(this.props); }}
       />);

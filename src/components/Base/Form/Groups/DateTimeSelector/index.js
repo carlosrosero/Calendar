@@ -6,9 +6,9 @@ import DateTimeSelector from 'components/Base/Form/DateTimeSelector';
 // other
 import styles from './index.css';
 
-export default function FormGroupDateTimeSelector({input, dateOnly, meta: {touched, error}}) {
+export default function FormGroupDateTimeSelector({input, dateOnly, className, meta: {touched, error}}) {
   const showError = touched && error;
-  return (<span className={cn(styles.wrapper, {[styles.dateOnly]: dateOnly, 'has-error': showError})}>
+  return (<span className={cn(styles.wrapper, className, {[styles.dateOnly]: dateOnly, 'has-error': showError})}>
     <DateTimeSelector
       {...input}
       dateOnly={dateOnly}
@@ -20,4 +20,5 @@ FormGroupDateTimeSelector.propTypes = {
   input: PropTypes.object.isRequired,
   meta: PropTypes.object.isRequired,
   dateOnly: PropTypes.bool,
+  className: PropTypes.string,
 };

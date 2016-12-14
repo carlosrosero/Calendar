@@ -44,9 +44,9 @@ class App extends Component {
   */
   monitorEvents = () => {
     _.each(this.props.events, (event) => {
-      const startDate = new Date(event.start);
-      const endDate = new Date(event.end);
-      const nowDate = new Date();
+      const startDate = moment(event.start).toDate();
+      const endDate = moment(event.end).toDate();
+      const nowDate = moment().toDate();
 
       if (!event.isUserNotified && (startDate <= nowDate) && (nowDate < endDate)) {
         notifications.show('Event reminder', event.title);

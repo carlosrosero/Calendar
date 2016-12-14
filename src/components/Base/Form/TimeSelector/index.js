@@ -5,7 +5,7 @@ import _ from 'lodash';
 // other
 import styles from './index.css';
 
-export default function TimeSelector({value, onChange, onBlur}) {
+export default function TimeSelector({value, className, onChange, onBlur}) {
   // generate time range
   const hoursRange = _.range(0, 24);
   const minutesRange = _.range(0, 51, 30);
@@ -18,7 +18,7 @@ export default function TimeSelector({value, onChange, onBlur}) {
   }).flatten().value();
 
   return (<select
-    className={cn('form-control input-sm', styles.select)}
+    className={cn('form-control input-sm', styles.select, className)}
     value={value}
     onChange={(event) => { onChange(event.target.value); }}
     onBlur={onBlur}
@@ -31,6 +31,7 @@ export default function TimeSelector({value, onChange, onBlur}) {
 }
 TimeSelector.propTypes = {
   value: PropTypes.string,
+  className: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
 };

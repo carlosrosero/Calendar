@@ -2,6 +2,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
+import moment from 'moment';
 import $ from 'jquery';
 import _ from 'lodash';
 // actions
@@ -39,6 +40,7 @@ class Calendar extends React.Component {
 
   componentDidMount() {
     const {date, events} = this.props;
+
     $(this.calendarRoot).fullCalendar({
       events,
       header: {
@@ -95,6 +97,7 @@ class Calendar extends React.Component {
   }
 
   handleEventChanged = (event) => {
+    this.fixEndDate(event);
     const evenSerialized = _.pick(event, this.eventFields);
     this.props.onEventChanged({
       ...evenSerialized,
@@ -120,6 +123,15 @@ class Calendar extends React.Component {
 
   hideEventViewModal() {
     this.setState({showEventViewModal: false, eventToBeViewed: null});
+  }
+
+  /**
+  Fixes Firefox issue when end date is null for events with 30-mins duration
+  */
+  fixEndDate(event) {
+    if (!event.end) {
+      event.end = moment(event.start).add(30, 'minutes').format('YYYY-MM-DD HH:mm');
+    }
   }
 
   render() {

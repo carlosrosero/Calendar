@@ -10,7 +10,7 @@ export default function TopNav() {
     <Navbar collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
-          Calendar
+          Calendar App
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
