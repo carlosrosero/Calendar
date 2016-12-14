@@ -13,7 +13,7 @@ export default [
       <IndexRedirect to="week" />
       <Route path="week" component={CalendarPage.Week} />
     </Route>
-    <Route path="calendar/event/:id" component={CalendarPage.CreateEvent} />
+    <Route path="calendar/event/:id" component={CalendarPage.EditEvent} />
 
     <Route path="404" component={NotFoundView} />
   </Route>,

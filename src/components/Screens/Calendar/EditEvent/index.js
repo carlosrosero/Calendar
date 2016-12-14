@@ -5,11 +5,11 @@ import {connect} from 'react-redux';
 import {fetchAllEvents} from 'actions/Event';
 // components
 import EventEditForm from 'components/Modules/EventEditForm';
+import Helmet from 'react-helmet';
 // other
 import styles from './index.css';
 
-// TODO: bad name
-class CreateEventPage extends React.Component {
+class EditEvent extends React.Component {
   static propTypes = {
     eventId: PropTypes.any,
     event: PropTypes.object,
@@ -25,7 +25,9 @@ class CreateEventPage extends React.Component {
 
   render() {
     const {event} = this.props;
+    const title = event ? 'Edit Event' : 'Create Event';
     return (<div className={styles.container}>
+      <Helmet title={`Calendar - ${title}`} />
       <EventEditForm event={event} />
     </div>);
   }
@@ -43,4 +45,4 @@ function select(state, ownProps) {
 
 export default connect(select, {
   fetchAllEvents,
-})(CreateEventPage);
+})(EditEvent);

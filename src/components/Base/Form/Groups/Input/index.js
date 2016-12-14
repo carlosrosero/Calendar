@@ -2,7 +2,7 @@
 import React, {PropTypes} from 'react';
 import cn from 'classnames';
 
-export default function FormGroupInput({input, label, type, meta: {touched, error, warning}}) {
+export default function FormGroupInput({input, label, type, meta: {touched, error}}) {
   const showError = touched && error;
   return (<div className={cn('form-group', {'has-error': showError})}>
     <input {...input} placeholder={label} type={type} className="form-control" />

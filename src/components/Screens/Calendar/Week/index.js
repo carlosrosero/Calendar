@@ -7,6 +7,7 @@ import _ from 'lodash';
 import {fetchAllEvents, updateEvent} from 'actions/Event';
 // components
 import Calendar from 'components/Modules/Calendar';
+import Helmet from 'react-helmet';
 
 class CalendarWeekPage extends React.Component {
   static propTypes = {
@@ -37,6 +38,7 @@ class CalendarWeekPage extends React.Component {
   render() {
     const {events, defaultDate} = this.props;
     return (<div>
+      <Helmet title="Calendar - week view" />
       <Calendar events={events} date={defaultDate} onEventChanged={this.handleEventChanged} />
     </div>);
   }

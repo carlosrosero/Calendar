@@ -27,6 +27,7 @@ class EventViewModal extends React.Component {
   }
 
   handleRemoveConfirmed = () => {
+    this.setState({showRemoveConfirmation: false});
     this.props.onRemove(this.props.event);
   }
 
