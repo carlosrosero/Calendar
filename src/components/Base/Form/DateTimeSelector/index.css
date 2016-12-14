@@ -11,8 +11,11 @@
 .wrapper {
   > {
     &:last-child {
-      margin: 0 3px;
       float: right;
+      margin: 0 3px;
+      @media (max-width: 768px) {
+        margin: 0;
+      }
     }
   }
 }
