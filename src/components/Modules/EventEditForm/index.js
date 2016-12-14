@@ -87,9 +87,17 @@ function validate(values) {
 const selector = formValueSelector('eventEditForm');
 function select(state, ownProps) {
   const allDayValue = selector(state, 'allDay');
+  const nowDate = moment();
+  const remainder = 30 - (nowDate.minute() % 30);
+  const start = moment(nowDate).add(remainder, 'minutes');
+  const defaultEventData = {
+    title: 'Untitled event',
+    start: start.format('YYYY-MM-DD HH:mm'),
+    end: moment(start).add(30, 'minutes').format('YYYY-MM-DD HH:mm'),
+  };
   return {
     allDayValue,
-    initialValues: ownProps.event,
+    initialValues: ownProps.event || defaultEventData,
   };
 }
 

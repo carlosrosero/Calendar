@@ -2,6 +2,9 @@
   width: 120px;
   @media (max-width: 768px) {
     width: 183px;
+    &.fullWidth {
+      width: 290px;
+    }
   }
 }
 

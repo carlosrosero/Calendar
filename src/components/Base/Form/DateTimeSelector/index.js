@@ -103,7 +103,7 @@ class DateTimeSelector extends React.Component {
         key="1"
         showWeekNumbers
         locale="en-gb"
-        className={cn('form-control input-sm', styles.datePickerInput)}
+        className={cn('form-control input-sm', styles.datePickerInput, {[styles.fullWidth]: dateOnly})}
         selected={this.state.date}
         onChange={this.handleDateSelected}
         onBlur={() => { this.handleBlur(this.props); }}
