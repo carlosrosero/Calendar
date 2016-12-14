@@ -24,7 +24,6 @@ export function show(title, body) {
   const showNotification = () => {
     /* eslint-disable no-unused-vars */
     const notification = new Notification(title, {
-      icon: 'http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/marker-small-icon.png',
       body,
     });
     /* eslint-enable no-unused-vars */

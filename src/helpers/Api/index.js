@@ -18,7 +18,7 @@ const api = {
 
   // created a new entity
   post: ({endpoint, data, schema}) => {
-    this._checkEndpoint();
+    api._checkEndpoint(endpoint);
     if (!_.isPlainObject(data)) {
       throw new Error('data must be a plain object');
     }
@@ -31,7 +31,7 @@ const api = {
 
   // update existing entity
   put: ({endpoint, data, schema}) => {
-    this._checkEndpoint();
+    api._checkEndpoint(endpoint);
     if (!_.isPlainObject(data) || !data.id) {
       throw new Error('data must be a plain object and have the id field');
     }
@@ -47,7 +47,7 @@ const api = {
 
   // read the data
   get: ({endpoint, schema, query}) => {
-    this._checkEndpoint();
+    api._checkEndpoint(endpoint);
 
     const prefixedEndpoint = api._buildEndpoint(endpoint);
     const dataFromLs = localStorageApi.fetchCollection(prefixedEndpoint, query);
@@ -62,7 +62,7 @@ const api = {
 
   // delete an entity by ID
   delete: ({endpoint, id}) => {
-    this._checkEndpoint();
+    api._checkEndpoint(endpoint);
 
     const prefixedEndpoint = api._buildEndpoint(endpoint);
     const isDeleted = localStorageApi.delete(prefixedEndpoint, id);
