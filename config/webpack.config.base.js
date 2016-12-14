@@ -1,14 +1,14 @@
 var path = require('path');
 var port = 3000;
 var srcPath = path.join(__dirname, '/../src');
-var publicPath = '/build/';
+var publicPath = '/js/';
 
 module.exports = {
   port: port,
   debug: true,
   output: {
     path: path.join(__dirname, '/../build'),
-    filename: 'app.js',
+    filename: 'js/app.js',
     publicPath: publicPath
   },
   devServer: {
