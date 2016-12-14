@@ -1,15 +1,22 @@
 .wrapper {
   display: inline-block;
   width: 227px;
-  @media (max-width: 768px) {
+  @media (min-width: 320px) {
     margin: 2px 0;
+    width: 292px;
+  }
+
+  @media (min-width: 768px) {
     width: 288px;
   }
 
   &.dateOnly {
     width: 123px;
-    @media (max-width: 768px) {
-      width: 293px;
+    @media (min-width: 320px) {
+      width: 292px;
+    }
+    @media (min-width: 768px) {
+      width: 288px;
     }
   }
 }

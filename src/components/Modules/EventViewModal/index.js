@@ -31,6 +31,11 @@ class EventViewModal extends React.Component {
     this.props.onRemove(this.props.event);
   }
 
+  handleModalHide = () => {
+    this.props.onHide();
+    this.setState({showRemoveConfirmation: false});
+  }
+
   render() {
     const {event, show} = this.props;
     if (!event) {
@@ -40,7 +45,7 @@ class EventViewModal extends React.Component {
 
     return (<Modal
       show={show}
-      onHide={this.props.onHide}
+      onHide={this.handleModalHide}
       title={event.title}
     >
       <div>
@@ -48,7 +53,7 @@ class EventViewModal extends React.Component {
 
         <div className="form-footer no-bottom-padding">
           {showRemoveConfirmation ? ([
-            <span className="pull-left text-danger" key="1">Are you sure?</span>,
+            <span className="pull-left text-danger" key="1">Really?</span>,
             <Button onClick={this.handleRemoveCancelled} key="2">Cancel</Button>,
             <Button onClick={this.handleRemoveConfirmed} category="danger" key="3">Yes, remove</Button>,
           ]) : ([

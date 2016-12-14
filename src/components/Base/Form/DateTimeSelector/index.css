@@ -1,9 +1,15 @@
 .datePickerInput {
   width: 120px;
-  @media (max-width: 768px) {
+  @media (min-width: 320px) {
     width: 182px;
     &.fullWidth {
       width: 290px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    &.fullWidth {
+      width: 284px;
     }
   }
 }
@@ -13,9 +19,6 @@
     &:last-child {
       float: right;
       margin: 0 3px;
-      @media (max-width: 768px) {
-        margin: 0;
-      }
     }
   }
 }
