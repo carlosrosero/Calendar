@@ -11,8 +11,8 @@ var config = _.merge({
     new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
       __BASENAME__: JSON.stringify(process.env.PROJECT_SUBDIR || ''),
-      // 'process.env.NODE_ENV': '"production"',
-      // __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
+      'process.env.NODE_ENV': '"production"',
+      __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
     }),
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
