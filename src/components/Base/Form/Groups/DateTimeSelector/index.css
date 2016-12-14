@@ -3,7 +3,7 @@
   width: 227px;
   @media (max-width: 768px) {
     margin: 2px 0;
-    width: 290px;
+    width: 288px;
   }
 
   &.dateOnly {

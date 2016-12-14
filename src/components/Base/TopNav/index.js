@@ -1,6 +1,7 @@
 // libs
 import React from 'react';
 // components
+import {Link} from 'react-router';
 import TopNavItem from 'components/Base/TopNavItem';
 import {Navbar, Nav} from 'react-bootstrap';
 
@@ -9,7 +10,7 @@ export default function TopNav() {
     <Navbar collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
-          Calendar App
+          <Link to="/">Calendar App</Link>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
