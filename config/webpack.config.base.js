@@ -9,14 +9,14 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/../build'),
     filename: 'js/app.js',
-    publicPath: publicPath
+    publicPath: '/'
   },
   devServer: {
-    contentBase: './src/',
+    contentBase: path.resolve(__dirname, '../src'),
     historyApiFallback: true,
     hot: true,
     port: port,
-    publicPath: publicPath,
+    // publicPath: publicPath,
     noInfo: true
   },
   resolve: {

@@ -1,12 +1,16 @@
 /* eslint-disable no-alert */
+function isNotificationAvailable() {
+  return typeof Notification !== 'undefined';
+}
+
 export function requestPermission() {
-  if (Notification && (Notification.permission !== 'granted')) {
+  if (isNotificationAvailable() && (Notification.permission !== 'granted')) {
     Notification.requestPermission();
   }
 }
 
 export function show(title, body) {
-  if (!Notification) {
+  if (!isNotificationAvailable()) {
     // fallback for old browsers
     alert(body);
   }
