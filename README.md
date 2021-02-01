@@ -3,7 +3,6 @@ react-calendar-app
 
 Calendar app written in JS/ES6 and reactjs
 
-**Demo** is available [here]
 
 Development
 -------------------
@@ -50,10 +49,3 @@ Build the project
 ```
 npm run build
 ```
-Deploy the project to [gh-pages] (works only if you have forked the repo, since it pushed to the `gh-pages` branch of your repo)
-```
-npm run deploy 'Commit message'
-```
-
-[gh-pages]: https://pages.github.com/
-[here]: https://apedyashev.github.io/react-calendar-app
